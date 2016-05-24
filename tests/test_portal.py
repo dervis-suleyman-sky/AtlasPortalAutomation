@@ -152,6 +152,4 @@ class TestClass:
         portal = Portal()
         '''No need for an assert here the function contains asserts'''
         portal.create_new_title(webdriver,portal_asset,offers)
->>>>>>> 2765b2c1b7049673c7cbbcce999ed68e1a6d5a30
-
         
