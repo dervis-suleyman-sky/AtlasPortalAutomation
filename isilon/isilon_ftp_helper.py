@@ -68,13 +68,23 @@ class IsilonHelper():
         sftp.close()
         print("connection closed")
         
+        
     def file_exists(self,sftp,_file):
         return sftp.exists(_file)
+    
+    '''
+    @todo: Create a function to rename the file
+    @rename the existing file and move on need random gen for name
+    '''
+    def rename_file(self,sftp,_file,new_name=None):
+        sftp.rename()
+        return sftp.exists(os.path.basename(new_name))
     
 if __name__=='__main__':
     connection = IsilonHelper()
     _sftp = connection.secure_FTP()
     print connection.send(_sftp,'C:\\workspace\\AtlasPortalAutomation\\isilon\\test media\\auto_test_media_asset_01.mxf')
+    print connection.rename_file(_sftp, 'C:\\workspace\\AtlasPortalAutomation\\isilon\\test media\\auto_test_media_asset_01.mxf', 'New MXF name goes here')
      
     connection.close_FTP(_sftp)
     

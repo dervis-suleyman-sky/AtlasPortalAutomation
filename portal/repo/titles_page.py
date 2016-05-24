@@ -14,6 +14,9 @@ Created on 12 Apr 2016
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import ElementNotVisibleException
+
 import time
 
 class TitlePage(object):
@@ -65,7 +68,12 @@ class TitlePage(object):
     @note: text fields
     '''
     def textfield_id(self):
-        return self.driver.find_element_by_xpath('//*[@id="input_19"]')
+#         try:
+#             return self.driver.find_element_by_xpath('//*[@id="input_19"]')
+#         except ElementNotVisibleException as e:
+#             print e
+        time.sleep(1)
+        return self.driver.find_element_by_name('baseId')
     
     def textfield_channel(self):
         return self.driver.find_element_by_xpath('//*[@id="select_10"]')
@@ -108,7 +116,18 @@ class TitlePage(object):
         return self.driver.find_element_by_name('summaryBrief')
     
     def textfield_actors(self):
-        return self.driver.find_element_by_xpath('//*[@id="input-39"]')
+        element_actor=None
+        try:
+            
+            element_actor = self.driver.find_element_by_xpath('//*[@id="input-39"]')
+            element_actor.is_displayed()
+        
+        except NoSuchElementException as e:
+            
+            element_actor = self.driver.find_element_by_xpath('//*[@id="input-29"]')
+            element_actor.is_displayed()
+        
+        return element_actor
     
     def textfield_warning(self):
         return self.driver.find_element_by_name('titleWarning')
