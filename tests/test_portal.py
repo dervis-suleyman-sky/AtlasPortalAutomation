@@ -64,9 +64,83 @@ class TestClass:
 #     def test_navigate_to_new_title_page(self,webdriver):
 #         portal = Portal()
 #         assert portal.navigate_to_create_new_title_page(webdriver, True)
-       
+    
+    '''
+    @author: Dervis Suleyman
+    @summary: Create a new non-episodic asset
+    '''
     def test_create_new_title(self,webdriver):
+        '''
+        Test Data
+        '''
+        portal_asset={'asset_id':'Auto0111111',
+                      'channel':'Test Channel 1 - (United Kingdom)',
+                      'series':'',#if blank ignore series
+                      'Title':'Some Title',
+                      'Summary':'Some Summary',
+                      'Actors':'Dervis Suleyman',
+                      'Warning':'This movie may contain flashing images',
+                      'DisplayRuntime':'0:20',
+                      'Genre':'Specialist:Adult',
+                      'Rating':'All Ages',
+                      'BroadcastDate':'03/05/2016',
+                      'ProductionYear':'1990',
+                      'Studio':'Some Studio Code',
+                      'VideoFile':'Location of video mxf',
+                      'SubTitles':'Location of .stl',
+                      '16-9-image':'location of image',
+                      '4-3-image':'location of image',
+                      'Boxart-image':'location of image'}
+        
+        '''
+        Test data for offers
+        '''
+        offers=[]
+        offers.append({'offer':{'Platform':'AM','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
+        offers.append({'offer':{'Platform':'AT','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
+        offers.append({'offer':{'Platform':'AS','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
+        
         portal = Portal()
-        assert portal.create_new_title(webdriver)
+        '''No need for an assert here the function contains asserts'''
+        portal.create_new_title(webdriver,portal_asset,offers)
+        
+    '''
+    @author: Dervis Suleyman
+    @summary: Create a new test with different parameters
+    '''
+    def test_create_new_title_number_2(self,webdriver):
+        '''
+        Test Data
+        '''
+        portal_asset={'asset_id':'Auto0222222',
+                      'channel':'Test Channel 1 - (United Kingdom)',
+                      'series':'',#if blank ignore series
+                      'Title':'Some Title',
+                      'Summary':'Some Summary',
+                      'Actors':'Dervis Suleyman',
+                      'Warning':'This movie may contain flashing images',
+                      'DisplayRuntime':'0:20',
+                      'Genre':'Specialist:Adult',
+                      'Rating':'All Ages',
+                      'BroadcastDate':'03/05/2016',
+                      'ProductionYear':'1990',
+                      'Studio':'Some Studio Code',
+                      'VideoFile':'Location of video mxf',
+                      'SubTitles':'Location of .stl',
+                      '16-9-image':'location of image',
+                      '4-3-image':'location of image',
+                      'Boxart-image':'location of image'}
+        
+        '''
+        Test data for offers
+        '''
+        offers=[]
+        offers.append({'offer':{'Platform':'AM','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
+        offers.append({'offer':{'Platform':'AT','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
+        offers.append({'offer':{'Platform':'AS','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
+        
+        portal = Portal()
+        '''No need for an assert here the function contains asserts'''
+        portal.create_new_title(webdriver,portal_asset,offers)
 
         

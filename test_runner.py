@@ -33,12 +33,12 @@ if __name__ == "__main__":
     '''
     @note: report with out time and date
     '''
-    #pytest.main([template_test_path,"--html=atlas reports/report.html"])
+    pytest.main([template_test_path,"--html=atlas reports/report.html"])
     
     '''
     @note: report with time and date
     '''
-    pytest.main([template_test_path,"--html=atlas reports/report"+str((lstrip(str(datetime.datetime.now()))).replace(" ","T")).replace(":","-")+".html"])
+    #pytest.main([template_test_path,"--html=atlas reports/report"+str((lstrip(str(datetime.datetime.now()))).replace(" ","T")).replace(":","-")+".html"])
     
     
     '''

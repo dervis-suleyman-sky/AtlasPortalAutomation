@@ -91,19 +91,7 @@ class Portal(object):
         if(provider==4):
             admintoolbar.provider_4().click()
             
-        time.sleep(1)   
-        
-        '''
-        @todo: Check the provider has changed
-        '''
-        
-#         try:
-#             
-#             return admintoolbar.label_recent_media_delivered_from_Test_Provider().is_displayed()
-#         
-#         except:
-#             
-#             return False
+        time.sleep(1)
         
     '''
     Set the genre
@@ -139,7 +127,7 @@ class Portal(object):
     '''
     def navigate_to_create_new_title_page(self,webdriver,isURL=True):
         titlePage = TitlePage(webdriver)
-        
+        time.sleep(2)
         #if URL is true navigate using the browser URL
         if(isURL):
             titlePage.navigate()
@@ -162,55 +150,58 @@ class Portal(object):
     '''
     @todo: 
     '''
-    def create_new_title(self,webdriver):
+    def create_new_title(self,webdriver,portal_asset,offers):
+        '''Check channel exists else create new channel'''
+        '''Before test create and upload a new MXF with a unique name'''
         titlePage = TitlePage(webdriver)
         #Navigate to the page
         assert self.navigate_to_create_new_title_page(webdriver,True)
+        time.sleep(1)
         #start with 01
         titlePage.button_edit_id().click()
         titlePage.textfield_id().click()
         titlePage.textfield_id().clear()
-        titlePage.textfield_id().send_keys('001111111111112')
+        titlePage.textfield_id().send_keys(portal_asset['asset_id'])
         
         #move onto 02
         titlePage.button_next().click()
         
         titlePage.textfield_title().click()
-        titlePage.textfield_title().send_keys('Enter some title')
+        titlePage.textfield_title().send_keys(portal_asset['Title'])
         
         titlePage.textfield_summary().click()
-        titlePage.textfield_summary().send_keys('Enter some title')
+        titlePage.textfield_summary().send_keys(portal_asset['Summary'])
         
         titlePage.textfield_actors().click()
-        titlePage.textfield_actors().send_keys('Enter some title')
+        titlePage.textfield_actors().send_keys(portal_asset['Actors'])
         
         titlePage.textfield_warning().click()
-        titlePage.textfield_warning().send_keys('Enter some title')
+        titlePage.textfield_warning().send_keys(portal_asset['Warning'])
         
         titlePage.textfield_display_runtime().click()
-        titlePage.textfield_display_runtime().send_keys('020')
+        titlePage.textfield_display_runtime().send_keys(portal_asset['DisplayRuntime'])
     
-        titlePage.drop_down_genre().click()
-        time.sleep(1)
-        titlePage.genre_free_preview().click()
-        
-        titlePage.drop_down_rating().send_keys('Infant')
-        time.sleep(1)
-        titlePage.rating_all_ages().click()
+#         titlePage.drop_down_genre().click()
+#         time.sleep(1)
+#         titlePage.genre_free_preview().click()
+#         
+#         titlePage.drop_down_rating().send_keys('Infant')
+#         time.sleep(1)
+#         titlePage.rating_all_ages().click()
         
         titlePage.textfield_broadcast_date().click()
-        titlePage.textfield_broadcast_date().send_keys('03/05/2016')
+        titlePage.textfield_broadcast_date().send_keys(portal_asset['BroadcastDate'])
         
         titlePage.textfield_production_year().click()
-        titlePage.textfield_production_year().send_keys('1990')
+        titlePage.textfield_production_year().send_keys(portal_asset['ProductionYear'])
         
         titlePage.textfield_studio().click()
-        titlePage.textfield_studio().send_keys('Auto Studio')
+        titlePage.textfield_studio().send_keys(portal_asset['Studio'])
         
         
         time.sleep(5)
         
-        #Move onto 03
+        #Move onto 03 - select the video
     
     '''
     Navigate to the media file page check for media asset, if not present add media asset
