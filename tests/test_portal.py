@@ -28,7 +28,8 @@ class TestClass:
     def test_navigate_to_login_page(self,webdriver):
         portal = Portal()
         assert portal.navigate_to_login_page(webdriver)
-#           
+
+#
 #     def test_login_invalid_credentials(self,webdriver):
 #         portal = Portal()
 #         assert not portal.login(webdriver, username="Invalid_user",password="Invalid_password")
@@ -36,6 +37,15 @@ class TestClass:
     def test_login_valid_credentials(self,webdriver):
         portal = Portal()
         assert portal.login(webdriver, username="dervis_admin",password="abcd12345")
+
+    '''
+    @author: Satish Tailor
+    @summary: Test Navigation to the Seasons page is possible, if the Seasons page is not found fail the test
+    '''
+
+    def test_navigate_to_season_page(self, webdriver):
+        portal = Portal()
+        assert portal.navigate_to_seasons_page(webdriver,isURL=True)
         
 #     '''Set the provider to 2'''
 #     def test_change_provider(self,webdriver):
@@ -65,8 +75,8 @@ class TestClass:
 #         portal = Portal()
 #         assert portal.navigate_to_create_new_title_page(webdriver, True)
        
-    def test_create_new_title(self,webdriver):
-        portal = Portal()
-        assert portal.create_new_title(webdriver)
+    # def test_create_new_title(self,webdriver):
+    #     portal = Portal()
+    #     assert portal.create_new_title(webdriver)
 
         

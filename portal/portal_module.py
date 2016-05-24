@@ -20,6 +20,7 @@ from portal.repo.titles_page import TitlePage
 from portal.repo.side_navigation_bar import SideNavigationBar
 from portal.repo.admin_toolbar import AdminToolBar
 from portal.repo.media_page import MediaPage
+from portal.repo.seasons_page import SeasonsPage
 
 
 class Portal(object):
@@ -158,7 +159,34 @@ class Portal(object):
         except NoSuchElementException as e:
             print e
             return False
-        
+
+    '''
+    @author: Satish Tailor
+    @note: navigating to seasons page
+    '''
+    def navigate_to_seasons_page(self,webdriver,isURL=True):
+        seasonsPage = SeasonsPage(webdriver)
+
+        #if URL is true navigate using the browser URL
+        if(isURL):
+            seasonsPage.navigate()
+        else:
+            pass
+            #sideNav = SideNavigationBar(webdriver)
+            #sideNav.button_create_new_title().click()
+
+        try:
+            #need to have a wait - also need to ensure the screen is full screen
+            '''
+            @note: This is_displayed() only!! confirms the element is visible to the user on the page.
+            '''
+
+            return seasonsPage.title().is_displayed()
+
+        except NoSuchElementException as e:
+            print e
+            return False
+
     '''
     @todo: 
     '''

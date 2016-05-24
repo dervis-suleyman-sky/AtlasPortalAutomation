@@ -67,3 +67,5 @@ target/
 .idea/modules.xml
 .idea/inspectionProfiles/Project_Default.xml
 .idea/vcs.xml
+*.html
+webdriver_utils/selenium_webdriver.py
