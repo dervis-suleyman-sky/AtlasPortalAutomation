@@ -93,34 +93,6 @@ class Portal(object):
             admintoolbar.provider_4().click()
             
         time.sleep(1)
-        
-    '''
-    Set the genre
-    '''
-#     def set_genre(self,webdriver,provider=1):
-#         
-#         titlePage = TitlePage(webdriver)
-#         
-#         import time
-#         
-#         time.sleep(1)
-#         titlePage.drop_down_genre().click()
-#         time.sleep(2)
-#         
-#         '''switch providers integer values'''
-#         if(provider==1):
-#             admintoolbar.provider_1().click()
-#             
-#         if(provider==2):
-#             admintoolbar.provider_2().click()
-#             
-#         if(provider==3):
-#             admintoolbar.provider_3().click()
-#             
-#         if(provider==4):
-#             admintoolbar.provider_4().click()
-#             
-#         time.sleep(1)   
     
     '''
     @author: Dervis Suleyman
@@ -176,7 +148,8 @@ class Portal(object):
             return False
 
     '''
-    @todo: 
+    @author: Dervis Suleyman
+    @summary: Send a new MXF to the dropzone, then create a new non-episodic asset
     '''
     def create_new_title(self,webdriver,portal_asset,offers):
         '''Check channel exists else create new channel'''
@@ -192,7 +165,7 @@ class Portal(object):
         titlePage.textfield_id().send_keys(portal_asset['asset_id'])
         
         #move onto 02
-        titlePage.button_next().click()
+        titlePage.button_01_next().click()
         
         titlePage.textfield_title().click()
         titlePage.textfield_title().send_keys(portal_asset['Title'])
@@ -201,7 +174,7 @@ class Portal(object):
         titlePage.textfield_summary().send_keys(portal_asset['Summary'])
         
         titlePage.textfield_actors().click()
-        titlePage.textfield_actors().send_keys(portal_asset['Actors'])
+        titlePage.send_text(portal_asset['Actors'])
         
         titlePage.textfield_warning().click()
         titlePage.textfield_warning().send_keys(portal_asset['Warning'])
@@ -209,13 +182,15 @@ class Portal(object):
         titlePage.textfield_display_runtime().click()
         titlePage.textfield_display_runtime().send_keys(portal_asset['DisplayRuntime'])
     
-#         titlePage.drop_down_genre().click()
-#         time.sleep(1)
-#         titlePage.genre_free_preview().click()
-#         
-#         titlePage.drop_down_rating().send_keys('Infant')
-#         time.sleep(1)
-#         titlePage.rating_all_ages().click()
+        '''Drop down for Genre'''
+        titlePage.drop_down_genre().click()
+        time.sleep(3)
+        titlePage.genre_entertainment_action().click()
+        
+        '''drop down rating'''
+        titlePage.drop_down_rating().click()
+        time.sleep(3)
+        titlePage.rating_all_ages().click()
         
         titlePage.textfield_broadcast_date().click()
         titlePage.textfield_broadcast_date().send_keys(portal_asset['BroadcastDate'])
@@ -226,10 +201,11 @@ class Portal(object):
         titlePage.textfield_studio().click()
         titlePage.textfield_studio().send_keys(portal_asset['Studio'])
         
-        
+        titlePage.button_02_next().click()
         time.sleep(5)
         
         #Move onto 03 - select the video
+        titlePage.drop_down_video_file().click()
     
     '''
     Navigate to the media file page check for media asset, if not present add media asset

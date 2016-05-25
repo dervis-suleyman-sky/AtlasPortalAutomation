@@ -22,7 +22,8 @@ from string import lstrip
 
 
 if __name__ == "__main__":
-    template_test_path = os.path.abspath("")+"\\tests\\test_portal.py"
+    '''Update the path to the test location'''
+    template_test_path = os.path.abspath("")+"\\tests\\test_create_placeholder.py"
     ''''
     @note: reporting plugins - https://pytest.org/latest/usage.html
         --junitxml=path

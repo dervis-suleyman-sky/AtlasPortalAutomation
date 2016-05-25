@@ -16,6 +16,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import Select
 
 import time
 
@@ -35,6 +37,11 @@ class TitlePage(object):
     def title(self):
         #may need a wait condition/function here
         return self.driver.find_element_by_xpath('//*[@id="admin-panel"]/md-toolbar/div/h2[1]/span/span')
+    
+    def send_text(self,text):
+        actions = ActionChains(self.driver)
+        actions.send_keys(text)
+        actions.perform()
     
     '''
     @note: Sub Menu lables
@@ -96,9 +103,8 @@ class TitlePage(object):
     def button_create(self):
         return self.driver.find_element_by_xpath('//*[@id="admin-panel-content-view"]/ui-view/div/div/div/div/div/button[2]')
     
-    def button_next(self):
+    def button_01_next(self):
         time.sleep(5)
-        
         return self.driver.find_element_by_xpath('/html/body/div/div/div/md-content/div/ui-view/div/div/div/div/div/button[3]')
     
     def button_submit(self):
@@ -116,18 +122,7 @@ class TitlePage(object):
         return self.driver.find_element_by_name('summaryBrief')
     
     def textfield_actors(self):
-        element_actor=None
-        try:
-            
-            element_actor = self.driver.find_element_by_xpath('//*[@id="input-39"]')
-            element_actor.is_displayed()
-        
-        except NoSuchElementException as e:
-            
-            element_actor = self.driver.find_element_by_xpath('//*[@id="input-29"]')
-            element_actor.is_displayed()
-        
-        return element_actor
+        return self.driver.find_element_by_name('actors')
     
     def textfield_warning(self):
         return self.driver.find_element_by_name('titleWarning')
@@ -135,19 +130,27 @@ class TitlePage(object):
     def textfield_display_runtime(self):
         return self.driver.find_element_by_name('displayRuntime')
     
-    '''genre drop down'''
+    '''
+    Drop down for Genre
+    '''
     def drop_down_genre(self):
-        return self.driver.find_element_by_xpath('//*[@id="select_30"]')
+        return self.driver.find_element_by_name('genre')
     
     def genre_free_preview(self):
         return self.driver.find_element_by_xpath('/html/body/div[3]/md-select-menu/md-content/md-option[2]/div[1]')
     
+    def genre_entertainment_action(self):
+        return self.driver.find_element_by_xpath('/html/body/div[3]/md-select-menu/md-content/md-option[18]/div[1]')
+    
+    def genre_Undefined_Undefined(self):
+        return self.driver.find_element_by_xpath('/html/body/div[3]/md-select-menu/md-content/md-option[1]')
+    
     '''rating drop down'''
     def drop_down_rating(self):
-        return self.driver.find_element_by_xpath('//*[@id="select_value_label_25"]/span[1]')
+        return self.driver.find_element_by_name('rating')
     
     def rating_all_ages(self):
-        return self.driver.find_element_by_xpath('//*[@id="select_option_2294"]/div[1]/font')
+        return self.driver.find_element_by_xpath('/html/body/div[4]/md-select-menu/md-content/md-option[2]/div[1]')
     
     def textfield_broadcast_date(self):
         return self.driver.find_element_by_class_name('md-datepicker-input')
@@ -157,13 +160,17 @@ class TitlePage(object):
     
     def textfield_studio(self):
         return self.driver.find_element_by_name('studioDisplay')
+    
+    def button_02_next(self):
+        time.sleep(5)
+        return self.driver.find_element_by_xpath('/html/body/div[1]/div/div/md-content/div/ui-view/div/div/div/div/div/button[3]')
      
     '''
     @note: 03 VIDEO
     '''
 
-    def textfield_video_file(self):
-        return self.driver.find_element_by_xpath('//*[@id="select_26"]')
+    def drop_down_video_file(self):
+        return self.driver.find_element_by_name('media')
     
     '''
     @note: 04 IMAGES & SUBS
