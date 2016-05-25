@@ -1,7 +1,7 @@
 '''
-Created on 12 Apr 2016
+Created on 24 May 2016
 
-@author: Dev2
+@author: Satish Tailor
 '''
 
 class SeasonsPage(object):
@@ -9,14 +9,14 @@ class SeasonsPage(object):
     classdocs
     '''
 
+    def navigate(self):
+        self.driver.get('https://vodportal-test.awf.bskyb.com/#/assets/seasons')
+
     def __init__(self, web_driver):
         '''
         @attention: the web driver
         '''
         self.driver = web_driver.driver
-
-    def navigate(self):
-        self.driver.get('https://vodportal-test.awf.bskyb.com/#/assets/seasons')
 
     def title(self):
         #may need a wait condition/function here
@@ -48,11 +48,15 @@ class SeasonsPage(object):
     def textfield_production_year(self):
         return self.driver.find_element_by_name('year')
 
+    '''Add image load elements'''
+
     def button_land_16_9_season(self):
-        return self.driver.find_element_by_xpath('//*[@id="dialogContent_193"]/div/form/div/div[6]/md-card[1]/md-card-actions/button')
+        return self.driver.find_element_by_name('LAND_16_9_SEASON')
 
     def button_land_n_4_3_season(self):
-        return self.driver.find_element_by_xpath('/html/body/div/div/div/md-content/div/ui-view/div/div/div/div/md-tabs/md-tabs-content-wrapper/md-tab-content[1]/div/div/form/div/div[2]/div[1]/md-icon[2]')
+        return self.driver.find_element_by_name('LAND_N_4_3_SEASON')
+
+    '''Add OK an CANCEL buttons'''
 
     def button_cancel(self):
         return self.driver.find_element_by_xpath('/html/body/div[3]/md-dialog/div/button[1]/span')

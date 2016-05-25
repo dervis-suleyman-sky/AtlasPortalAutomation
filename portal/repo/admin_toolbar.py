@@ -38,4 +38,9 @@ class AdminToolBar(object):
     
     def label_recent_media_delivered_from_Test_Provider(self):
         return self.driver.find_element_by_xpath('#//*[@id="admin-panel-content-view"]/div[2]/md-card[1]/md-card-content/h2')
-    
+
+    def button_user(self):
+        return self.driver.find_element_by_xpath('/html/body/div[1]/div/div/md-toolbar/div/md-menu/button')
+
+    def button_logout(self):
+        return self.driver.find_element_by_xpath('/html/body/div[4]/md-menu-content/md-menu-item[2]/button')
