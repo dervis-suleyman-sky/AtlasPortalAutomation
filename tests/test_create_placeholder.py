@@ -38,14 +38,14 @@ class TestClass:
         portal = Portal()
         assert portal.login(webdriver, username="dervis_admin",password="abcd12345")
 
-    '''
-    @author: Satish Tailor
-    @summary: Test Navigation to the Seasons page is possible, if the Seasons page is not found fail the test
-    '''
-
-    def test_navigate_to_season_page(self, webdriver):
-        portal = Portal()
-        assert portal.navigate_to_seasons_page(webdriver,isURL=True)
+#     '''
+#     @author: Satish Tailor
+#     @summary: Test Navigation to the Seasons page is possible, if the Seasons page is not found fail the test
+#     '''
+# 
+#     def test_navigate_to_season_page(self, webdriver):
+#         portal = Portal()
+#         assert portal.navigate_to_seasons_page(webdriver,isURL=True)
         
 #     '''Set the provider to 2'''
 #     def test_change_provider(self,webdriver):
@@ -83,7 +83,7 @@ class TestClass:
         '''
         Test Data
         '''
-        portal_asset={'asset_id':'Auto0111111',
+        portal_asset={'asset_id':'123456789012311',
                       'channel':'Test Channel 1 - (United Kingdom)',
                       'series':'',#if blank ignore series
                       'Title':'Some Title',
@@ -122,12 +122,12 @@ class TestClass:
         '''
         Test Data
         '''
-        portal_asset={'asset_id':'Auto0222222',
+        portal_asset={'asset_id':'123456789012312',
                       'channel':'Test Channel 1 - (United Kingdom)',
                       'series':'',#if blank ignore series
                       'Title':'Some Title',
                       'Summary':'Some Summary',
-                      'Actors':'Dervis Suleyman',
+                      'Actors':'Satish Tailor',
                       'Warning':'This movie may contain flashing images',
                       'DisplayRuntime':'0:20',
                       'Genre':'Specialist:Adult',
@@ -140,7 +140,7 @@ class TestClass:
                       '16-9-image':'location of image',
                       '4-3-image':'location of image',
                       'Boxart-image':'location of image'}
-        
+          
         '''
         Test data for offers
         '''
@@ -148,7 +148,7 @@ class TestClass:
         offers.append({'offer':{'Platform':'AM','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
         offers.append({'offer':{'Platform':'AT','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
         offers.append({'offer':{'Platform':'AS','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
-        
+          
         portal = Portal()
         '''No need for an assert here the function contains asserts'''
         portal.create_new_title(webdriver,portal_asset,offers)
