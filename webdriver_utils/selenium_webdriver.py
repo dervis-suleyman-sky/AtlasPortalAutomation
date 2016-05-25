@@ -17,6 +17,7 @@ Created on 11 Apr 2016
 
 @author: Dev2
 '''
+import os
 
 class WebDriver():
     '''
@@ -35,7 +36,7 @@ class WebDriver():
     def set_chrome_driver(self):
         options = webdriver.ChromeOptions()
         options.add_argument("--start-maximized")
-        self.driver = webdriver.Chrome(executable_path='C:/workspace/DebugGUI/chromedriver_win32/chromedriver',chrome_options=options)
+        self.driver = webdriver.Chrome(executable_path=os.path.abspath("")+'/chromedriver_win32/chromedriver',chrome_options=options)
         self.driver.implicitly_wait(20)
         
     '''
