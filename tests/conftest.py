@@ -38,6 +38,14 @@ def config_settings():
     '''set connection details'''
     pass
 
+'''
+'''
+@pytest.fixture(scope="module")
+def Login(request,webdriver):
+    from portal.portal_module import Portal
+    portal = Portal()
+    assert portal.login(webdriver, username="dervis_admin",password="abcd12345")
+
 @pytest.fixture(scope="module")
 def webdriver(request):
     from webdriver_utils.selenium_webdriver import WebDriver

@@ -75,15 +75,38 @@ class TitlePage(object):
     @note: text fields
     '''
     def textfield_id(self):
-#         try:
-#             return self.driver.find_element_by_xpath('//*[@id="input_19"]')
-#         except ElementNotVisibleException as e:
-#             print e
         time.sleep(1)
         return self.driver.find_element_by_name('baseId')
     
-    def textfield_channel(self):
-        return self.driver.find_element_by_xpath('//*[@id="select_10"]')
+    def drop_down_channel(self):
+        time.sleep(1)
+        #Look for all elements with the tag name 'md-option' and store in a list
+        element_md_select = self.driver.find_elements_by_tag_name('md-select')
+        #loop through the list until you find your rating then click
+        for md_select in element_md_select:
+            if md_select.get_attribute('aria-label')=='Pick a channel...':
+                md_select.click()
+                '''If channel is found click the value'''
+                return True
+            
+        return False
+    
+    '''Select a channel'''
+    def select_channel(self,_channel):
+        #Wait for the drop down to load
+        time.sleep(2)
+        #Look for all elements with the tag name 'md-option' and store in a list
+        element_md_options = self.driver.find_elements_by_tag_name('md-option')
+        #loop through the list until you find your rating then click
+        for md_option in element_md_options:
+            print md_option.text
+            if md_option.text==_channel:
+                '''If channel is found click the value'''
+                md_option.click()
+                '''return true'''
+                return True
+            
+        return False
     
     def textfield_part_series(self):
         return self.driver.find_element_by_xpath('//*[@id="select_12"]')
@@ -136,21 +159,39 @@ class TitlePage(object):
     def drop_down_genre(self):
         return self.driver.find_element_by_name('genre')
     
-    def genre_free_preview(self):
-        return self.driver.find_element_by_xpath('/html/body/div[3]/md-select-menu/md-content/md-option[2]/div[1]')
-    
-    def genre_entertainment_action(self):
-        return self.driver.find_element_by_xpath('/html/body/div[3]/md-select-menu/md-content/md-option[18]/div[1]')
-    
-    def genre_Undefined_Undefined(self):
-        return self.driver.find_element_by_xpath('/html/body/div[3]/md-select-menu/md-content/md-option[1]')
+    '''Search through all the md-options to find the genre for the test'''
+    def select_genre(self,_genre='Sports:Extreme'):
+        #Wait for the drop down to load
+        time.sleep(2)
+        #Look for all elements with the tag name 'md-option' and store in a list
+        element_md_options = self.driver.find_elements_by_tag_name('md-option')
+        #loop through the list until you find your rating then click
+        for md_option in element_md_options:
+            if md_option.text==_genre:
+                md_option.click()
+                '''If Genre is found click the value'''
+                return True
+            
+        return False
     
     '''rating drop down'''
     def drop_down_rating(self):
         return self.driver.find_element_by_name('rating')
     
-    def rating_all_ages(self):
-        return self.driver.find_element_by_xpath('/html/body/div[4]/md-select-menu/md-content/md-option[2]/div[1]')
+    '''Search through all the md-options to find the rating for the test'''
+    def select_rating(self,_rating='All Ages'):
+        #Wait for the drop down to load
+        time.sleep(2)
+        #Look for all elements with the tag name 'md-option' and store in a list
+        element_md_options = self.driver.find_elements_by_tag_name('md-option')
+        #loop through the list until you find your rating then click
+        for md_option in element_md_options:
+            if md_option.text==_rating:
+                md_option.click()
+                '''If rating is found click the value'''
+                return True
+            
+        return False
     
     def textfield_broadcast_date(self):
         return self.driver.find_element_by_class_name('md-datepicker-input')
@@ -172,20 +213,49 @@ class TitlePage(object):
     def drop_down_video_file(self):
         return self.driver.find_element_by_name('media')
     
+    '''Search through all the md-options to find the specified media for the test'''
+    def select_video(self,media='auto_test_media_asset_01.mxf'):
+        #Wait for the drop down to load
+        time.sleep(2)
+        #Look for all elements with the tag name 'md-option' and store in a list
+        element_md_options = self.driver.find_elements_by_tag_name('md-option')
+        #loop through the list until you find your rating then click
+        for md_option in element_md_options:
+            if md_option.text==media:
+                md_option.click()
+                time.sleep(2)
+                '''If media is found click the value'''
+                return True
+            
+        '''If nothing is found return false'''   
+        return False
+    
+    def button_clear_video(self):
+        element_md_icons = self.driver.find_elements_by_tag_name('md-icon')
+        for md_icon in element_md_icons:
+            if md_icon.get_attribute('lx-tooltip')=='Clear video file':
+                md_icon.click()
+                
+                
+    def button_next_step(self):
+        element_buttons = self.driver.find_elements_by_tag_name('button')
+        for button in element_buttons:
+            if button.get_attribute('aria-label')=='next step':
+                button.click()
+        
     '''
     @note: 04 IMAGES & SUBS
     '''
     def button_subtitles(self):
-        return self.driver.find_element_by_xpath('//*[@id="tab-content-5"]/div/md-content/form/div/div[2]/div/div[1]/button')
+        return self.driver.find_element_by_name('SUBS')
    
     def button_image_16by9_1920by1080(self):
-        return self.driver.find_element_by_xpath('//*[@id="tab-content-5"]/div/md-content/form/div/div[2]/div/div[2]/md-card[1]/md-card-actions/button/i')
+        return self.driver.find_element_by_name('LAND_16_9')
     
     def button_image_4by3_1024by730(self):
-        return self.driver.find_element_by_xpath('//*[@id="tab-content-5"]/div/md-content/form/div/div[2]/div/div[2]/md-card[2]/md-card-actions/button')
+        return self.driver.find_element_by_name('LAND_N_4_3')
     
     def button_image_box_art_image_1080by1600(self):
-        return self.driver.find_element_by_xpath('//*[@id="tab-content-5"]/div/md-content/form/div/div[2]/div/div[2]/md-card[3]/md-card-actions/button')
-   
+        return self.driver.find_element_by_name('BOXART')
    
     
