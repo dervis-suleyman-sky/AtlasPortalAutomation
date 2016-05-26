@@ -69,3 +69,5 @@ target/
 .idea/vcs.xml
 *.html
 webdriver_utils/selenium_webdriver.py
+test_runner.py
+test_runner.py

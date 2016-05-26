@@ -18,14 +18,31 @@ class TestClass(object):
         portal = Portal()
         assert not portal.login(webdriver, username="Invalid_user",password="Invalid_password")
 
-    def test_admin_role_login_valid_credentials(self,webdriver):
+    '''
+    Satish Tailor: Added the logout assert statements to combine login and logout tests
+    '''
+    def test_admin_role_login_and_logout_valid_credentials(self,webdriver):
         portal = Portal()
         assert portal.login(webdriver, username="st_admin",password="12345")
+        assert portal.logout(webdriver)
 
-    def test_superuser_role__login_valid_credentials(self, webdriver):
+    def test_superuser_role_login_and_logout_valid_credentials(self, webdriver):
         portal = Portal()
         assert portal.login(webdriver, username="st_superuser", password="12345")
+        assert portal.logout(webdriver)
 
-    def test_user_role_login_valid_credentials(self, webdriver):
+    def test_user_role_login_and_logout_valid_credentials(self, webdriver):
         portal = Portal()
         assert portal.login(webdriver, username="st_user", password="12345")
+        assert portal.logout(webdriver)
+
+    '''
+    Satish Tailor: Added minimum password length tests
+    '''
+    def test_minimum_password_length_of_eight_7_disallowed(self, webdriver):
+        portal = Portal()
+        assert not portal.login(webdriver, username="st_admin_pw_length_7", password="1234567")
+
+    def test_minimum_password_length_of_eight_8_allowed(self, webdriver):
+        portal = Portal()
+        assert portal.login(webdriver, username="st_admin_pw_length_8", password="12345678")

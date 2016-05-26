@@ -8,6 +8,8 @@ Created on 12 Apr 2016
 # from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
 # from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
 
+import time
+
 class LoginPage():
     '''
     classdocs
@@ -32,6 +34,7 @@ class LoginPage():
         return self.driver.find_element_by_xpath('//*[@id="password"]')
    
     def button_login(self):
+        time.sleep(2)
         return self.driver.find_element_by_xpath('//*[@id="ui-login"]/div/div/md-card/md-content/form/button')
     
     def notification_invalid_username_password(self):

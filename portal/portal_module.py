@@ -65,7 +65,19 @@ class Portal(object):
         except NoSuchElementException as e:
             print e
             return False
-    
+
+    '''
+    Satish Tailor: Added logout()
+    '''
+
+    def logout(self,webdriver):
+        #call the admin_toolbar repo page
+        loginPage = LoginPage(webdriver)
+        admintoolbar = AdminToolBar(webdriver)
+        #navigate to the login page and verify the page has loaded
+        admintoolbar.button_user().click()
+        admintoolbar.button_logout().click()
+        return loginPage.title().is_displayed()
     '''
     Set the provider to either 1,2,3 or 4 you will need to add providers here
     '''
@@ -277,4 +289,9 @@ class Portal(object):
     '''create provider function'''
     def create_new_provider(self,webdriver):
         pass
-    
+
+
+    '''create user function'''
+
+    def create_new_user(self, webdriver):
+        pass
