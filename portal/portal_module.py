@@ -161,7 +161,7 @@ class Portal(object):
 
     '''
     @author: Dervis Suleyman
-    @summary: Send a new MXF to the dropzone, then create a new non-episodic asset
+    @summary: Send a new MXF to the drop zone, then create a new non-episodic asset
     '''
     def create_new_title(self,webdriver,portal_asset,offers):
         '''Check channel exists else create new channel'''
@@ -175,6 +175,10 @@ class Portal(object):
         titlePage.textfield_id().click()
         titlePage.textfield_id().clear()
         titlePage.textfield_id().send_keys(portal_asset['asset_id'])
+        
+        '''Click drop down for channel and select '''
+        titlePage.drop_down_channel()
+        titlePage.select_channel(portal_asset['channel'])
         
         #move onto 02
         titlePage.button_01_next().click()
@@ -196,13 +200,11 @@ class Portal(object):
     
         '''Drop down for Genre'''
         titlePage.drop_down_genre().click()
-        time.sleep(3)
-        titlePage.genre_entertainment_action().click()
+        titlePage.select_genre(portal_asset['Genre'])
         
         '''drop down rating'''
         titlePage.drop_down_rating().click()
-        time.sleep(3)
-        titlePage.rating_all_ages().click()
+        titlePage.select_rating(portal_asset['Rating'])
         
         titlePage.textfield_broadcast_date().click()
         titlePage.textfield_broadcast_date().send_keys(portal_asset['BroadcastDate'])
@@ -217,7 +219,19 @@ class Portal(object):
         time.sleep(5)
         
         #Move onto 03 - select the video
+        '''
+        @note: You cannot select Audio Lang until you have chosen the channel on the first tab of title
+        '''
+        
+        '''drop down media asset'''
         titlePage.drop_down_video_file().click()
+        titlePage.select_video(portal_asset['VideoFile'])
+        
+        titlePage.button_next_step()
+        
+        #Move onto 04 - images & subs
+        
+        
     
     '''
     Navigate to the media file page check for media asset, if not present add media asset
