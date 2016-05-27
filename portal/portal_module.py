@@ -228,6 +228,7 @@ class Portal(object):
         titlePage.drop_down_video_file().click()
         titlePage.select_video(portal_asset['VideoFile'])
         
+        '''Button next step has click built into the function'''
         titlePage.button_next_step()
         
         #Move onto 04 - images & subs
@@ -236,13 +237,38 @@ class Portal(object):
         titlePage.upload_image_16by9_1920by1080(portal_asset['16-9-image'])
         titlePage.upload_image_4by3_1024by730(portal_asset['4-3-image'])
         titlePage.upload_image_box_art_image_1080by1600(portal_asset['Boxart-image'])
-        time.sleep(5)
+        time.sleep(2)
         
         '''Button next step has click built into the function'''
         titlePage.button_next_step()
         
         #Move onto 05 - offer
+        assert titlePage.label_no_offers_defined()
+        '''offers will need to go under a loop'''
+        titlePage.button_add_new_offer().click()
+        assert titlePage.label_add_new_offer()
+        titlePage.drop_down_platform().click()
+        titlePage.select_platform(platform='Tablet (AT)').click()
+        titlePage.radio_button_archive()
+        titlePage.radio_button_catchup()
         
+        #http://stackoverflow.com/questions/30469419/fire-ng-change-of-angular-page-using-selenium
+        titlePage.offer_start_date().click()
+#         time.sleep(5)
+#         titlePage.button_test()
+        time.sleep(2)
+        titlePage.button_ok()
+        time.sleep(2)
+        titlePage.button_ok()
+        time.sleep(2)
+        titlePage.button_ok()
+        
+        time.sleep(30)
+        
+        #.send_keys('27 May 2016, 15:06')
+        #titlePage.offer_end_date().click()
+        #.send_keys('31 May 2016, 15:06')
+        #titlePage.button_ok().click()
     
     '''
     Navigate to the media file page check for media asset, if not present add media asset

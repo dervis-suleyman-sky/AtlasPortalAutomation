@@ -11,13 +11,13 @@ Created on 12 Apr 2016
 #     print driver.title
 
 
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import ElementNotVisibleException
+#from selenium.webdriver.support.ui import WebDriverWait
+#from selenium.webdriver.support import expected_conditions as EC
+#from selenium.webdriver.common.by import By
+#from selenium.common.exceptions import NoSuchElementException
+#from selenium.common.exceptions import ElementNotVisibleException
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.ui import Select
+#from selenium.webdriver.support.ui import Select
 
 import time
 import os
@@ -308,14 +308,16 @@ class TitlePage(object):
     def label_no_offers_defined(self):
         h2_elements = self.driver.find_elements_by_tag_name('h2')
         for h2 in h2_elements:
-            if h2.get_attribute('aria-label')=='No offers defined':
-                return h2
+            if h2.text=='No offers defined':
+                return True
+            
+        return False
         
     def button_add_new_offer(self):
         button_elements = self.driver.find_elements_by_tag_name('button')
         for button in button_elements:
             if button.get_attribute('aria-label')=='add new offer':
-                button.click()
+                return button
                 
     '''
     @note: Pop-up Add new offer
@@ -323,16 +325,21 @@ class TitlePage(object):
     def label_add_new_offer(self):
         h2_elements = self.driver.find_elements_by_tag_name('h2')
         for h2 in h2_elements:
-            if h2.get_attribute('aria-label')=='Add a new offer':
-                return h2
+            if h2.text=='Add a new offer':
+                return True
+        
+        return False
             
     def drop_down_platform(self):
-        self.driver.find_element_by_name('name="platform"')
+        return self.driver.find_element_by_name('platform')
     
     '''
     Select Platform e.g. AM,AT,AS the default is AM
+    Mobile (AM)
+    Tablet (AT)
     '''    
     def select_platform(self,platform='Mobile (AM)'):
+        time.sleep(2)
         md_option_elements = self.driver.find_elements_by_tag_name('md-option')
         for md_option in md_option_elements:
             print md_option.text
@@ -360,16 +367,41 @@ class TitlePage(object):
         return self.driver.find_element_by_name('endDate')
     
     def button_cancel(self):
-        button_elements = self.driver.find_elements_by_tag_name('Cancel')
+        button_elements = self.driver.find_elements_by_tag_name('button')
         for button in button_elements:
-            if button.get_attribute('aria-label')=='add new offer':
+            if button.get_attribute('aria-label')=='Cancel':
                 return button
         
     def button_ok(self):
-        button_elements = self.driver.find_elements_by_tag_name('OK')
+        #return self.driver.find_element_by_xpath('/html/body/div[7]/md-dialog/md-dialog-actions/button[2]')
+        button_elements = self.driver.find_elements_by_tag_name('button')
         for button in button_elements:
-            if button.get_attribute('aria-label')=='add new offer':
-                return button
+            print button.text
+            print button.get_attribute('aria-label')
+            if button.get_attribute('aria-label')=='OK':
+                actions = ActionChains(self.driver)
+                actions.move_to_element(button)
+                actions.click(button)
+                actions.perform()
+                #return button
+   
+    def label_atlas_mobile_AM(self):
+        h2_elements = self.driver.find_elements_by_tag_name('h2')
+        for h2 in h2_elements:
+            if h2.get_attribute('aria-label')=='Mobile (AM)':
+                return h2
+    
+    def label_atlas_tablet_AT(self):
+        h2_elements = self.driver.find_elements_by_tag_name('h2')
+        for h2 in h2_elements:
+            if h2.get_attribute('aria-label')=='Tablet (AT)':
+                return h2
+    
+    def label_atlas_set_top_box_AS(self):
+        h2_elements = self.driver.find_elements_by_tag_name('h2')
+        for h2 in h2_elements:
+            if h2.get_attribute('aria-label')=='Tablet (AT)':
+                return h2
     
     
     
