@@ -119,7 +119,7 @@ class TestClass:
 #                       '16-9-image':'location of image',
 #                       '4-3-image':'location of image',
 #                       'Boxart-image':'location of image'}
-#           
+#            
 #         '''
 #         Test data for offers
 #         '''
@@ -127,7 +127,7 @@ class TestClass:
 #         offers.append({'offer':{'Platform':'AM','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
 #         offers.append({'offer':{'Platform':'AT','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
 #         offers.append({'offer':{'Platform':'AS','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
-#           
+#            
 #         portal = Portal()
 #         '''No need for an assert here the function contains asserts'''
 #         portal.create_new_title(webdriver,portal_asset,offers)

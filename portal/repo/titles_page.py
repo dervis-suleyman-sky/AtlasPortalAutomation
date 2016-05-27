@@ -301,5 +301,91 @@ class TitlePage(object):
         self.send_keystrokes(os.path.abspath("")+image)
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
-   
+    
+    '''
+    @note: 05 OFFER
+    '''
+    def label_no_offers_defined(self):
+        h2_elements = self.driver.find_elements_by_tag_name('h2')
+        for h2 in h2_elements:
+            if h2.get_attribute('aria-label')=='No offers defined':
+                return h2
+        
+    def button_add_new_offer(self):
+        button_elements = self.driver.find_elements_by_tag_name('button')
+        for button in button_elements:
+            if button.get_attribute('aria-label')=='add new offer':
+                button.click()
+                
+    '''
+    @note: Pop-up Add new offer
+    '''
+    def label_add_new_offer(self):
+        h2_elements = self.driver.find_elements_by_tag_name('h2')
+        for h2 in h2_elements:
+            if h2.get_attribute('aria-label')=='Add a new offer':
+                return h2
+            
+    def drop_down_platform(self):
+        self.driver.find_element_by_name('name="platform"')
+    
+    '''
+    Select Platform e.g. AM,AT,AS the default is AM
+    '''    
+    def select_platform(self,platform='Mobile (AM)'):
+        md_option_elements = self.driver.find_elements_by_tag_name('md-option')
+        for md_option in md_option_elements:
+            print md_option.text
+            if md_option.text==platform:
+                return md_option
+    
+    def radio_button_catchup(self):
+        md_radio_button_elements = self.driver.find_elements_by_tag_name('md-radio-button')
+        for radio_button in md_radio_button_elements:
+            print radio_button.get_attribute('aria-label')
+            if radio_button.get_attribute('aria-label')=='Catchup (CUTV)':
+                return radio_button.click()
+    
+    def radio_button_archive(self):
+        md_radio_button_elements = self.driver.find_elements_by_tag_name('md-radio-button')
+        for radio_button in md_radio_button_elements:
+            print radio_button.get_attribute('aria-label')
+            if radio_button.get_attribute('aria-label')=='Archive':
+                return radio_button.click()
+    
+    def offer_start_date(self):
+        return self.driver.find_element_by_name('startDate')
+    
+    def offer_end_date(self):
+        return self.driver.find_element_by_name('endDate')
+    
+    def button_cancel(self):
+        button_elements = self.driver.find_elements_by_tag_name('Cancel')
+        for button in button_elements:
+            if button.get_attribute('aria-label')=='add new offer':
+                return button
+        
+    def button_ok(self):
+        button_elements = self.driver.find_elements_by_tag_name('OK')
+        for button in button_elements:
+            if button.get_attribute('aria-label')=='add new offer':
+                return button
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
