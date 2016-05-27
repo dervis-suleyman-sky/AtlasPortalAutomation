@@ -76,10 +76,10 @@ class TestClass:
                       'ProductionYear':'1990',
                       'Studio':'Some Studio Code',
                       'VideoFile':'auto_test_media_asset_01.mxf',
-                      'SubTitles':'Location of .stl',
-                      '16-9-image':'location of image',
-                      '4-3-image':'location of image',
-                      'Boxart-image':'location of image'}
+                      'SubTitles':'\\isilon\\subtitles\\SBC073608_1.stl',
+                      '16-9-image':'\\isilon\\test_images\\1167563-LAND_16_9.jpg',
+                      '4-3-image':'\\isilon\\test_images\\1167563-LAND_N_4_3.jpg',
+                      'Boxart-image':'\\isilon\\test_images\\BOXART.jpg'}
         
         '''
         Test data for offers

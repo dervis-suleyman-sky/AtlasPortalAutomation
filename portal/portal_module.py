@@ -218,6 +218,7 @@ class Portal(object):
         titlePage.button_02_next().click()
         time.sleep(5)
         
+        
         #Move onto 03 - select the video
         '''
         @note: You cannot select Audio Lang until you have chosen the channel on the first tab of title
@@ -230,7 +231,17 @@ class Portal(object):
         titlePage.button_next_step()
         
         #Move onto 04 - images & subs
+        '''Upload a .stl the location must be within the project'''
+        titlePage.upload_subtitles(portal_asset['SubTitles'])
+        titlePage.upload_image_16by9_1920by1080(portal_asset['16-9-image'])
+        titlePage.upload_image_4by3_1024by730(portal_asset['4-3-image'])
+        titlePage.upload_image_box_art_image_1080by1600(portal_asset['Boxart-image'])
+        time.sleep(5)
         
+        '''Button next step has click built into the function'''
+        titlePage.button_next_step()
+        
+        #Move onto 05 - offer
         
     
     '''

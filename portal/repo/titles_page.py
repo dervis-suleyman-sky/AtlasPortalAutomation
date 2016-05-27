@@ -20,6 +20,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 
 import time
+import os
+import SendKeys
 
 class TitlePage(object):
     '''
@@ -39,6 +41,20 @@ class TitlePage(object):
         return self.driver.find_element_by_xpath('//*[@id="admin-panel"]/md-toolbar/div/h2[1]/span/span')
     
     def send_text(self,text):
+        actions = ActionChains(self.driver)
+        actions.send_keys(text)
+        actions.perform()
+    
+    '''
+    Keyboard actions - sends key strokes to an active field 
+    '''
+    def send_keystrokes(self,text):
+        SendKeys.SendKeys(text)
+        
+    '''
+    Simulate pressing the enter key
+    '''
+    def press_enter(self,text):
         actions = ActionChains(self.driver)
         actions.send_keys(text)
         actions.perform()
@@ -236,6 +252,10 @@ class TitlePage(object):
             if md_icon.get_attribute('lx-tooltip')=='Clear video file':
                 md_icon.click()
                 
+    '''
+    select the options in the radio button fields for audio lang
+    '''
+                
                 
     def button_next_step(self):
         element_buttons = self.driver.find_elements_by_tag_name('button')
@@ -246,16 +266,40 @@ class TitlePage(object):
     '''
     @note: 04 IMAGES & SUBS
     '''
-    def button_subtitles(self):
-        return self.driver.find_element_by_name('SUBS')
+    def upload_subtitles(self,subtitle_file):
+        '''Need to wait for input dialog to appear'''
+        time.sleep(1)
+        self.driver.find_element_by_name('SUBS').click()
+        time.sleep(5)
+        self.send_keystrokes(os.path.abspath("")+subtitle_file)
+        '''Simulate the action of pressing enter'''
+        SendKeys.SendKeys('{ENTER}')
    
-    def button_image_16by9_1920by1080(self):
-        return self.driver.find_element_by_name('LAND_16_9')
+    def upload_image_16by9_1920by1080(self,image):
+        '''Need to wait for input dialog to appear'''
+        time.sleep(1)
+        self.driver.find_element_by_name('LAND_16_9').click()
+        time.sleep(1)
+        self.send_keystrokes(os.path.abspath("")+image)
+        '''Simulate the action of pressing enter'''
+        SendKeys.SendKeys('{ENTER}')
     
-    def button_image_4by3_1024by730(self):
-        return self.driver.find_element_by_name('LAND_N_4_3')
+    def upload_image_4by3_1024by730(self,image):
+        '''Need to wait for input dialog to appear'''
+        time.sleep(1)
+        self.driver.find_element_by_name('LAND_N_4_3').click()
+        time.sleep(1)
+        self.send_keystrokes(os.path.abspath("")+image)
+        '''Simulate the action of pressing enter'''
+        SendKeys.SendKeys('{ENTER}')
     
-    def button_image_box_art_image_1080by1600(self):
-        return self.driver.find_element_by_name('BOXART')
+    def upload_image_box_art_image_1080by1600(self,image):
+        '''Need to wait for input dialog to appear'''
+        time.sleep(1)
+        self.driver.find_element_by_name('BOXART').click()
+        time.sleep(1)
+        self.send_keystrokes(os.path.abspath("")+image)
+        '''Simulate the action of pressing enter'''
+        SendKeys.SendKeys('{ENTER}')
    
     
