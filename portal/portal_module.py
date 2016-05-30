@@ -21,18 +21,13 @@ from portal.repo.side_navigation_bar import SideNavigationBar
 from portal.repo.admin_toolbar import AdminToolBar
 from portal.repo.media_page import MediaPage
 from portal.repo.seasons_page import SeasonsPage
+from portal.repo.series_page import SeriesPage
 
 
 class Portal(object):
-    '''
-    classdocs
-    '''
 
     def __init__(self):
         pass
-        '''
-        Set the user name and password for future use
-        '''
         
     def navigate_to_login_page(self,webdriver):
         #call the login repo page
@@ -69,7 +64,6 @@ class Portal(object):
     '''
     Satish Tailor: Added logout()
     '''
-
     def logout(self,webdriver):
         #call the admin_toolbar repo page
         loginPage = LoginPage(webdriver)
@@ -78,6 +72,7 @@ class Portal(object):
         admintoolbar.button_user().click()
         admintoolbar.button_logout().click()
         return loginPage.title().is_displayed()
+    
     '''
     Set the provider to either 1,2,3 or 4 you will need to add providers here
     '''
@@ -158,6 +153,34 @@ class Portal(object):
         except NoSuchElementException as e:
             print e
             return False
+        
+    '''
+    @author: Dervis Suleyman
+    @note: navigating to series page
+    '''
+    def navigate_to_series_page(self,webdriver,isURL=True):
+        seriesPage = SeriesPage(webdriver)
+
+        #if URL is true navigate using the browser URL
+        if(isURL):
+            seriesPage.navigate()
+        else:
+            pass
+            #sideNav = SideNavigationBar(webdriver)
+            #sideNav.button_create_new_title().click()
+
+        try:
+            #need to have a wait - also need to ensure the screen is full screen
+            '''
+            @note: This is_displayed() only!! confirms the element is visible to the user on the page.
+            '''
+
+            return seriesPage.title()
+
+        except NoSuchElementException as e:
+            print e
+            return False
+    
 
     '''
     @author: Dervis Suleyman
@@ -333,6 +356,63 @@ class Portal(object):
         '''Return overall result - success message all content has been pushed to the isilon'''
         return True
     
+        '''create season function'''       
+    def create_new_season(self,webdriver,season_info):
+        pass
+    
+    '''create series function'''
+    '''
+            series_info = {'SeriesID':'12345678901234567892',
+                       'TitleBrief':'Title brief',
+                       'TitleMedium':'Title medium',
+                       'TitleLong':'Long',
+                       'SummaryBrief':'brief',
+                       'SummaryShort':'short',
+                       'SummaryMedium':'med',
+                       'SummaryLong':'long',
+                       'Genre':'genre',
+                       'StudioDisplay':'studio',
+                       '16x9 image':'\\isilon\\test_images\\1167563-LAND_16_9.jpg',
+                       '4x3 image':'\\isilon\\test_images\\1167563-LAND_N_4_3.jpg'}
+    '''       
+    def create_new_series(self,webdriver,series_info):
+        seriesPage = SeriesPage(webdriver)
+        assert self.navigate_to_series_page(webdriver)
+        seriesPage.button_add_series().click()
+        '''Pop up'''
+        assert seriesPage.label_add_series()
+        seriesPage.button_edit_id().click()
+        seriesPage.textfield_id().send_keys(series_info['SeriesID'])
+        seriesPage.button_expand_title().click()
+        seriesPage.textfield_title_brief().send_keys(series_info['TitleBrief'])
+        seriesPage.textfield_title_medium().send_keys(series_info['TitleMedium'])
+        seriesPage.textfield_title_long().send_keys(series_info['TitleLong'])
+        seriesPage.button_expand_summary().click()
+        seriesPage.textfield_summary_brief().send_keys(series_info['SummaryBrief'])
+        seriesPage.textfield_summary_short().send_keys(series_info['SummaryShort'])
+        seriesPage.textfield_summary_medium().send_keys(series_info['SummaryMedium'])
+        seriesPage.textfield_summary_long().send_keys(series_info['SummaryLong'])
+        '''select a genre'''
+        seriesPage.drop_down_genre().click()
+        time.sleep(2)
+        seriesPage.select_genre(series_info['Genre'])
+        
+        seriesPage.textfield_studio_display().send_keys(series_info['StudioDisplay'])
+        '''
+        @note: Upload images
+        '''
+        seriesPage.upload_image_16by9_1920by1080(series_info['16x9 image'])
+        seriesPage.upload_image_4by3_1024by730(series_info['4x3 image'])
+        
+        
+        '''click ok and create the series'''
+        seriesPage.button_ok().click()
+        
+        
+        #Temp wait
+        time.sleep(10)
+        
+    
     '''create channel function'''       
     def create_new_channel(self,webdriver):
         pass
@@ -340,7 +420,6 @@ class Portal(object):
     '''create provider function'''
     def create_new_provider(self,webdriver):
         pass
-
 
     '''create user function'''
 
