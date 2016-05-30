@@ -34,6 +34,26 @@ class TestClass(object):
         
         portal.create_new_series(webdriver, series_info)
         
+    '''
+    test the creation of a new series
+    '''
+    def test_creat_new_series_no_id_given(self,webdriver):
+        portal = Portal()
+        series_info = {'SeriesID':'',
+                       'TitleBrief':'Title brief',
+                       'TitleMedium':'Title medium',
+                       'TitleLong':'Long',
+                       'SummaryBrief':'brief',
+                       'SummaryShort':'short',
+                       'SummaryMedium':'med',
+                       'SummaryLong':'long',
+                       'Genre':'Children:Factual',
+                       'StudioDisplay':'studio',
+                       '16x9 image':'\\isilon\\test_images\\1167563-LAND_16_9.jpg',
+                       '4x3 image':'\\isilon\\test_images\\1167563-LAND_N_4_3.jpg'}
+        
+        portal.create_new_series(webdriver, series_info)
+        
         
         
         

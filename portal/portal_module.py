@@ -148,7 +148,7 @@ class Portal(object):
             @note: This is_displayed() only!! confirms the element is visible to the user on the page.
             '''
 
-            return seasonsPage.title().is_displayed()
+            return seasonsPage.title()
 
         except NoSuchElementException as e:
             print e
@@ -185,6 +185,40 @@ class Portal(object):
     '''
     @author: Dervis Suleyman
     @summary: Send a new MXF to the drop zone, then create a new non-episodic asset
+    
+    Test Data:
+        
+        portal_asset={'asset_id':'123456789012311',
+                      'channel':'Test Channel 2',
+                      'series':'Friends4',
+                      'season':'Friends4 season 3',
+                      'episodeNumber':'1',
+                      'TotalEpisodes':'50',
+                      'Title':'Some Title',
+                      'Summary':'Some Summary',
+                      'Actors':'Dervis Suleyman',
+                      'Warning':'This movie may contain flashing images',
+                      'DisplayRuntime':'0:20',
+                      'Genre':'Specialist:Adult',
+                      'Rating':'All Ages',
+                      'BroadcastDate':'03/05/2016',
+                      'ProductionYear':'1990',
+                      'Studio':'Some Studio Code',
+                      'VideoFile':'auto_test_media_asset_01.mxf',
+                      'SubTitles':'\\isilon\\subtitles\\SBC073608_1.stl',
+                      '16-9-image':'\\isilon\\test_images\\1167563-LAND_16_9.jpg',
+                      '4-3-image':'\\isilon\\test_images\\1167563-LAND_N_4_3.jpg',
+                      'Boxart-image':'\\isilon\\test_images\\BOXART.jpg'}
+        
+    
+    Test data for offers:
+
+        offers=[]
+        offers.append({'offer':{'Platform':'AM','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
+        offers.append({'offer':{'Platform':'AT','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
+        offers.append({'offer':{'Platform':'AS','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
+        
+    
     '''
     def create_new_title(self,webdriver,portal_asset,offers):
         '''Check channel exists else create new channel'''
@@ -356,9 +390,72 @@ class Portal(object):
         '''Return overall result - success message all content has been pushed to the isilon'''
         return True
     
-        '''create season function'''       
+    
+    '''create season function'''
+    
+    '''
+            season_info = {'SeasonID':'SEA__test12345',
+                       'Series':'Friends4',
+                       'TitleBrief':'Title brief',
+                       'TitleMedium':'Title medium',
+                       'TitleLong':'Long',
+                       'SummaryBrief':'brief',
+                       'SummaryShort':'short',
+                       'SummaryMedium':'med',
+                       'SummaryLong':'long',
+                       'SeasonNumber':'1',
+                       'TotalEpisodes':'21',
+                       'ProductionYear':'1990',
+                       '16x9 image':'\\isilon\\test_images\\1167563-LAND_16_9.jpg',
+                       '4x3 image':'\\isilon\\test_images\\1167563-LAND_N_4_3.jpg'}
+    '''   
     def create_new_season(self,webdriver,season_info):
-        pass
+        seasonPage = SeasonsPage(webdriver)
+        self.navigate_to_seasons_page(webdriver)
+        seasonPage.button_add_season().click()
+        assert seasonPage.label_add_season()
+        
+        '''series drop down'''
+        seasonPage.drop_down_series().click()
+        seasonPage.select_series(season_info['Series'])
+        time.sleep(2)
+        
+        '''Enter season id if given'''
+        if(not season_info['SeasonID']==''):
+            seasonPage.button_edit_id().click()
+            seasonPage.textfield_id().send_keys(season_info['SeasonID'])
+            
+        time.sleep(1)
+        seasonPage.button_expand_title().click()
+        seasonPage.textfield_title_brief().send_keys(season_info['TitleBrief'])
+        seasonPage.textfield_title_medium().send_keys(season_info['TitleMedium'])
+        seasonPage.textfield_title_long().send_keys(season_info['TitleLong'])
+        seasonPage.button_expand_summary().click()
+        seasonPage.textfield_summary_brief().send_keys(season_info['SummaryBrief'])
+        seasonPage.textfield_summary_short().send_keys(season_info['SummaryShort'])
+        seasonPage.textfield_summary_medium().send_keys(season_info['SummaryMedium'])
+        seasonPage.textfield_summary_long().send_keys(season_info['SummaryLong'])
+        
+        '''
+        Season specific info
+        '''
+        seasonPage.textfield_season_number().send_keys(season_info['SeasonNumber'])
+        seasonPage.textfield_total_episodes().send_keys(season_info['TotalEpisodes'])
+        seasonPage.textfield_production_year().send_keys(season_info['ProductionYear'])
+        
+        '''
+        @note: Upload images
+        '''
+        seasonPage.upload_image_16by9_1920by1080(season_info['16x9 image'])
+        seasonPage.upload_image_4by3_1024by730(season_info['4x3 image'])
+        
+        
+        '''click ok and create the series'''
+        seasonPage.button_ok().click()
+            
+        #Temp wait
+        time.sleep(5)
+        
     
     '''create series function'''
     '''
@@ -381,8 +478,14 @@ class Portal(object):
         seriesPage.button_add_series().click()
         '''Pop up'''
         assert seriesPage.label_add_series()
-        seriesPage.button_edit_id().click()
-        seriesPage.textfield_id().send_keys(series_info['SeriesID'])
+        
+        
+        '''Enter series id if given'''
+        if(not series_info['SeriesID']==''):
+            seriesPage.button_edit_id().click()
+            seriesPage.textfield_id().send_keys(series_info['SeriesID'])
+        
+        time.sleep(1)
         seriesPage.button_expand_title().click()
         seriesPage.textfield_title_brief().send_keys(series_info['TitleBrief'])
         seriesPage.textfield_title_medium().send_keys(series_info['TitleMedium'])
@@ -407,10 +510,9 @@ class Portal(object):
         
         '''click ok and create the series'''
         seriesPage.button_ok().click()
-        
-        
+            
         #Temp wait
-        time.sleep(10)
+        time.sleep(5)
         
     
     '''create channel function'''       

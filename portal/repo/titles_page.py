@@ -4,13 +4,6 @@ Created on 12 Apr 2016
 @author: Dev2
 '''
 
-#     # we have to wait for the page to refresh, the last thing that seems to be updated is the title
-#     WebDriverWait(driver, 10).until(EC.title_contains("cheese!"))
-# 
-#     # You should see "cheese! - Google Search"
-#     print driver.title
-
-
 #from selenium.webdriver.support.ui import WebDriverWait
 #from selenium.webdriver.support import expected_conditions as EC
 #from selenium.webdriver.common.by import By
@@ -124,8 +117,57 @@ class TitlePage(object):
             
         return False
     
-    def textfield_part_series(self):
-        return self.driver.find_element_by_xpath('//*[@id="select_12"]')
+    '''series drop down'''
+    def drop_down_series(self):
+        #name="series"
+        return self.driver.find_element_by_tag_name('series')
+    
+    '''Select a series'''
+    def select_series(self,_series='Friends4'):
+        #Wait for the drop down to load
+        time.sleep(2)
+        #Look for all elements with the tag name 'md-option' and store in a list
+        element_md_options = self.driver.find_elements_by_tag_name('md-option')
+        #loop through the list until you find your rating then click
+        for md_option in element_md_options:
+            print md_option.text
+            if md_option.text==_series:
+                '''If series is found click the value'''
+                md_option.click()
+                '''return true'''
+                return True
+            
+        return False
+    
+    
+    '''season drop down'''
+    def textfield_part_season(self):
+        return self.driver.find_element_by_tag_name('season')
+    
+    '''Select a season'''
+    def select_season(self,_season='Friends4 season 3'):
+        #Wait for the drop down to load
+        time.sleep(2)
+        #Look for all elements with the tag name 'md-option' and store in a list
+        element_md_options = self.driver.find_elements_by_tag_name('md-option')
+        #loop through the list until you find your rating then click
+        for md_option in element_md_options:
+            print md_option.text
+            if md_option.text==_season:
+                '''If series is found click the value'''
+                md_option.click()
+                '''return true'''
+                return True
+            
+        return False
+    
+    def textfield_episode_number(self):
+        time.sleep(1)
+        return self.driver.find_element_by_name('episodeNumber')
+    
+    def textfield_total_episode_number(self):
+        time.sleep(1)
+        return self.driver.find_element_by_name('totalEpisodes')
     
     '''
     @note: Buttons
