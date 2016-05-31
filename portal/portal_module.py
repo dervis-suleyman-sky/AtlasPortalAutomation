@@ -311,8 +311,8 @@ class Portal(object):
         
         #http://stackoverflow.com/questions/30469419/fire-ng-change-of-angular-page-using-selenium
         titlePage.offer_start_date().click()
-#         time.sleep(5)
-#         titlePage.button_test()
+#       time.sleep(5)
+#       titlePage.button_test()
         time.sleep(2)
         titlePage.button_ok()
         time.sleep(2)
@@ -524,6 +524,5 @@ class Portal(object):
         pass
 
     '''create user function'''
-
     def create_new_user(self, webdriver):
         pass
