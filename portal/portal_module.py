@@ -21,6 +21,7 @@ from portal.repo.side_navigation_bar import SideNavigationBar
 from portal.repo.admin_toolbar import AdminToolBar
 from portal.repo.media_page import MediaPage
 from portal.repo.seasons_page import SeasonsPage
+from portal.repo.users_page import UsersPage
 
 
 class Portal(object):
@@ -69,7 +70,6 @@ class Portal(object):
     '''
     Satish Tailor: Added logout()
     '''
-
     def logout(self,webdriver):
         #call the admin_toolbar repo page
         loginPage = LoginPage(webdriver)
@@ -78,6 +78,7 @@ class Portal(object):
         admintoolbar.button_user().click()
         admintoolbar.button_logout().click()
         return loginPage.title().is_displayed()
+
     '''
     Set the provider to either 1,2,3 or 4 you will need to add providers here
     '''
@@ -132,32 +133,6 @@ class Portal(object):
             print e
             return False
 
-    '''
-    @author: Satish Tailor
-    @note: navigating to seasons page
-    '''
-    def navigate_to_seasons_page(self,webdriver,isURL=True):
-        seasonsPage = SeasonsPage(webdriver)
-
-        #if URL is true navigate using the browser URL
-        if(isURL):
-            seasonsPage.navigate()
-        else:
-            pass
-            #sideNav = SideNavigationBar(webdriver)
-            #sideNav.button_create_new_title().click()
-
-        try:
-            #need to have a wait - also need to ensure the screen is full screen
-            '''
-            @note: This is_displayed() only!! confirms the element is visible to the user on the page.
-            '''
-
-            return seasonsPage.title().is_displayed()
-
-        except NoSuchElementException as e:
-            print e
-            return False
 
     '''
     @author: Dervis Suleyman
@@ -295,8 +270,36 @@ class Portal(object):
             
         '''Return overall result - success message all content has been pushed to the isilon'''
         return True
-    
-    '''create channel function'''       
+
+    '''
+    Satish Tailor: Added create new user
+    '''
+
+    def navigate_to_admin_users_page(self, webdriver, isURL=True):
+        usersPage = UsersPage(webdriver)
+        time.sleep(2)
+
+    # if URL is true navigate using the browser URL
+    if (isURL):
+        usersPage.navigate()
+    else:
+        pass
+        # sideNav = SideNavigationBar(webdriver)
+        # sideNav.button_create_new_title().click()
+
+    try:
+        # need to have a wait - also need to ensure the screen is full screen
+        '''
+        @note: This is_displayed() only!! confirms the element is visible to the user on the page.
+        '''
+
+        return usersPage.title().is_displayed()
+
+    except NoSuchElementException as e:
+        print e
+        return False
+
+    '''create channel function'''
     def create_new_channel(self,webdriver):
         pass
     
