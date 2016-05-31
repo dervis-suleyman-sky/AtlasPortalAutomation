@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 '''
 Created on 2 May 2016
 
@@ -416,23 +417,25 @@ class Portal(object):
         return True
 
 
-    '''create season function'''
-
     '''
-            season_info = {'SeasonID':'SEA__test12345',
-                       'Series':'Friends4',
-                       'TitleBrief':'Title brief',
-                       'TitleMedium':'Title medium',
-                       'TitleLong':'Long',
-                       'SummaryBrief':'brief',
-                       'SummaryShort':'short',
-                       'SummaryMedium':'med',
-                       'SummaryLong':'long',
-                       'SeasonNumber':'1',
-                       'TotalEpisodes':'21',
-                       'ProductionYear':'1990',
-                       '16x9 image':'\\isilon\\test_images\\1167563-LAND_16_9.jpg',
-                       '4x3 image':'\\isilon\\test_images\\1167563-LAND_N_4_3.jpg'}
+    @author: Derivs Suleyman
+    @note: create season function
+
+    season_info = {'SeasonID':'SEA__test12345',
+               'Series':'Friends4',
+               'TitleBrief':'Title brief',
+               'TitleMedium':'Title medium',
+               'TitleLong':'Long',
+               'SummaryBrief':'brief',
+               'SummaryShort':'short',
+               'SummaryMedium':'med',
+               'SummaryLong':'long',
+               'SeasonNumber':'1',
+               'TotalEpisodes':'21',
+               'ProductionYear':'1990',
+               '16x9 image':'\\isilon\\test_images\\1167563-LAND_16_9.jpg',
+               '4x3 image':'\\isilon\\test_images\\1167563-LAND_N_4_3.jpg'}
+               
     '''
     def create_new_season(self,webdriver,season_info):
         seasonPage = SeasonsPage(webdriver)
@@ -482,20 +485,23 @@ class Portal(object):
         time.sleep(5)
 
 
-    '''create series function'''
     '''
-            series_info = {'SeriesID':'12345678901234567892',
-                       'TitleBrief':'Title brief',
-                       'TitleMedium':'Title medium',
-                       'TitleLong':'Long',
-                       'SummaryBrief':'brief',
-                       'SummaryShort':'short',
-                       'SummaryMedium':'med',
-                       'SummaryLong':'long',
-                       'Genre':'genre',
-                       'StudioDisplay':'studio',
-                       '16x9 image':'\\isilon\\test_images\\1167563-LAND_16_9.jpg',
-                       '4x3 image':'\\isilon\\test_images\\1167563-LAND_N_4_3.jpg'}
+    @author: Dervis Suleyman
+    @note: create series function
+
+    series_info = {'SeriesID':'12345678901234567892',
+               'TitleBrief':'Title brief',
+               'TitleMedium':'Title medium',
+               'TitleLong':'Long',
+               'SummaryBrief':'brief',
+               'SummaryShort':'short',
+               'SummaryMedium':'med',
+               'SummaryLong':'long',
+               'Genre':'genre',
+               'StudioDisplay':'studio',
+               '16x9 image':'\\isilon\\test_images\\1167563-LAND_16_9.jpg',
+               '4x3 image':'\\isilon\\test_images\\1167563-LAND_N_4_3.jpg'}
+               
     '''
     def create_new_series(self,webdriver,series_info):
         seriesPage = SeriesPage(webdriver)
@@ -514,7 +520,9 @@ class Portal(object):
         seriesPage.button_expand_title().click()
         seriesPage.textfield_title_brief().send_keys(series_info['TitleBrief'])
         seriesPage.textfield_title_medium().send_keys(series_info['TitleMedium'])
-        seriesPage.textfield_title_long().send_keys(series_info['TitleLong'])
+        i='Una investigación de personas desaparecidas al descubierto lo que parece ser una invasión alienígena en un pequeño pueblo rural.'
+        i=unicode(i.decode('utf-8'))
+        seriesPage.textfield_title_long().send_keys(i)#series_info['TitleLong'])
         seriesPage.button_expand_summary().click()
         seriesPage.textfield_summary_brief().send_keys(series_info['SummaryBrief'])
         seriesPage.textfield_summary_short().send_keys(series_info['SummaryShort'])
