@@ -4,9 +4,6 @@ Created on 19 Apr 2016
 @author: Dev2
 '''
 
-#import pxssh
-#http://unix.stackexchange.com/questions/61461/how-to-extract-specific-files-from-tar-gz
-
 import time
 import sys
 import pysftp

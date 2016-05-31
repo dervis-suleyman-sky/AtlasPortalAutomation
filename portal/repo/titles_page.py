@@ -4,22 +4,17 @@ Created on 12 Apr 2016
 @author: Dev2
 '''
 
-#     # we have to wait for the page to refresh, the last thing that seems to be updated is the title
-#     WebDriverWait(driver, 10).until(EC.title_contains("cheese!"))
-# 
-#     # You should see "cheese! - Google Search"
-#     print driver.title
-
-
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import ElementNotVisibleException
+#from selenium.webdriver.support.ui import WebDriverWait
+#from selenium.webdriver.support import expected_conditions as EC
+#from selenium.webdriver.common.by import By
+#from selenium.common.exceptions import NoSuchElementException
+#from selenium.common.exceptions import ElementNotVisibleException
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.ui import Select
+#from selenium.webdriver.support.ui import Select
 
 import time
+import os
+import SendKeys
 
 class TitlePage(object):
     '''
@@ -39,6 +34,20 @@ class TitlePage(object):
         return self.driver.find_element_by_xpath('//*[@id="admin-panel"]/md-toolbar/div/h2[1]/span/span')
     
     def send_text(self,text):
+        actions = ActionChains(self.driver)
+        actions.send_keys(text)
+        actions.perform()
+    
+    '''
+    Keyboard actions - sends key strokes to an active field 
+    '''
+    def send_keystrokes(self,text):
+        SendKeys.SendKeys(text)
+        
+    '''
+    Simulate pressing the enter key
+    '''
+    def press_enter(self,text):
         actions = ActionChains(self.driver)
         actions.send_keys(text)
         actions.perform()
@@ -108,8 +117,57 @@ class TitlePage(object):
             
         return False
     
-    def textfield_part_series(self):
-        return self.driver.find_element_by_xpath('//*[@id="select_12"]')
+    '''series drop down'''
+    def drop_down_series(self):
+        #name="series"
+        return self.driver.find_element_by_tag_name('series')
+    
+    '''Select a series'''
+    def select_series(self,_series='Friends4'):
+        #Wait for the drop down to load
+        time.sleep(2)
+        #Look for all elements with the tag name 'md-option' and store in a list
+        element_md_options = self.driver.find_elements_by_tag_name('md-option')
+        #loop through the list until you find your rating then click
+        for md_option in element_md_options:
+            print md_option.text
+            if md_option.text==_series:
+                '''If series is found click the value'''
+                md_option.click()
+                '''return true'''
+                return True
+            
+        return False
+    
+    
+    '''season drop down'''
+    def textfield_part_season(self):
+        return self.driver.find_element_by_tag_name('season')
+    
+    '''Select a season'''
+    def select_season(self,_season='Friends4 season 3'):
+        #Wait for the drop down to load
+        time.sleep(2)
+        #Look for all elements with the tag name 'md-option' and store in a list
+        element_md_options = self.driver.find_elements_by_tag_name('md-option')
+        #loop through the list until you find your rating then click
+        for md_option in element_md_options:
+            print md_option.text
+            if md_option.text==_season:
+                '''If series is found click the value'''
+                md_option.click()
+                '''return true'''
+                return True
+            
+        return False
+    
+    def textfield_episode_number(self):
+        time.sleep(1)
+        return self.driver.find_element_by_name('episodeNumber')
+    
+    def textfield_total_episode_number(self):
+        time.sleep(1)
+        return self.driver.find_element_by_name('totalEpisodes')
     
     '''
     @note: Buttons
@@ -236,6 +294,10 @@ class TitlePage(object):
             if md_icon.get_attribute('lx-tooltip')=='Clear video file':
                 md_icon.click()
                 
+    '''
+    select the options in the radio button fields for audio lang
+    '''
+                
                 
     def button_next_step(self):
         element_buttons = self.driver.find_elements_by_tag_name('button')
@@ -246,16 +308,158 @@ class TitlePage(object):
     '''
     @note: 04 IMAGES & SUBS
     '''
-    def button_subtitles(self):
-        return self.driver.find_element_by_name('SUBS')
+    def upload_subtitles(self,subtitle_file):
+        '''Need to wait for input dialog to appear'''
+        time.sleep(1)
+        self.driver.find_element_by_name('SUBS').click()
+        time.sleep(5)
+        self.send_keystrokes(os.path.abspath("")+subtitle_file)
+        '''Simulate the action of pressing enter'''
+        SendKeys.SendKeys('{ENTER}')
    
-    def button_image_16by9_1920by1080(self):
-        return self.driver.find_element_by_name('LAND_16_9')
+    def upload_image_16by9_1920by1080(self,image):
+        '''Need to wait for input dialog to appear'''
+        time.sleep(1)
+        self.driver.find_element_by_name('LAND_16_9').click()
+        time.sleep(1)
+        self.send_keystrokes(os.path.abspath("")+image)
+        '''Simulate the action of pressing enter'''
+        SendKeys.SendKeys('{ENTER}')
     
-    def button_image_4by3_1024by730(self):
-        return self.driver.find_element_by_name('LAND_N_4_3')
+    def upload_image_4by3_1024by730(self,image):
+        '''Need to wait for input dialog to appear'''
+        time.sleep(1)
+        self.driver.find_element_by_name('LAND_N_4_3').click()
+        time.sleep(1)
+        self.send_keystrokes(os.path.abspath("")+image)
+        '''Simulate the action of pressing enter'''
+        SendKeys.SendKeys('{ENTER}')
     
-    def button_image_box_art_image_1080by1600(self):
-        return self.driver.find_element_by_name('BOXART')
+    def upload_image_box_art_image_1080by1600(self,image):
+        '''Need to wait for input dialog to appear'''
+        time.sleep(1)
+        self.driver.find_element_by_name('BOXART').click()
+        time.sleep(1)
+        self.send_keystrokes(os.path.abspath("")+image)
+        '''Simulate the action of pressing enter'''
+        SendKeys.SendKeys('{ENTER}')
+    
+    '''
+    @note: 05 OFFER
+    '''
+    def label_no_offers_defined(self):
+        h2_elements = self.driver.find_elements_by_tag_name('h2')
+        for h2 in h2_elements:
+            if h2.text=='No offers defined':
+                return True
+            
+        return False
+        
+    def button_add_new_offer(self):
+        button_elements = self.driver.find_elements_by_tag_name('button')
+        for button in button_elements:
+            if button.get_attribute('aria-label')=='add new offer':
+                return button
+                
+    '''
+    @note: Pop-up Add new offer
+    '''
+    def label_add_new_offer(self):
+        h2_elements = self.driver.find_elements_by_tag_name('h2')
+        for h2 in h2_elements:
+            if h2.text=='Add a new offer':
+                return True
+        
+        return False
+            
+    def drop_down_platform(self):
+        return self.driver.find_element_by_name('platform')
+    
+    '''
+    Select Platform e.g. AM,AT,AS the default is AM
+    Mobile (AM)
+    Tablet (AT)
+    '''    
+    def select_platform(self,platform='Mobile (AM)'):
+        time.sleep(2)
+        md_option_elements = self.driver.find_elements_by_tag_name('md-option')
+        for md_option in md_option_elements:
+            print md_option.text
+            if md_option.text==platform:
+                return md_option
+    
+    def radio_button_catchup(self):
+        md_radio_button_elements = self.driver.find_elements_by_tag_name('md-radio-button')
+        for radio_button in md_radio_button_elements:
+            print radio_button.get_attribute('aria-label')
+            if radio_button.get_attribute('aria-label')=='Catchup (CUTV)':
+                return radio_button.click()
+    
+    def radio_button_archive(self):
+        md_radio_button_elements = self.driver.find_elements_by_tag_name('md-radio-button')
+        for radio_button in md_radio_button_elements:
+            print radio_button.get_attribute('aria-label')
+            if radio_button.get_attribute('aria-label')=='Archive':
+                return radio_button.click()
+    
+    def offer_start_date(self):
+        return self.driver.find_element_by_name('startDate')
+    
+    def offer_end_date(self):
+        return self.driver.find_element_by_name('endDate')
+    
+    def button_cancel(self):
+        button_elements = self.driver.find_elements_by_tag_name('button')
+        for button in button_elements:
+            if button.get_attribute('aria-label')=='Cancel':
+                return button
+        
+    def button_ok(self):
+        #return self.driver.find_element_by_xpath('/html/body/div[7]/md-dialog/md-dialog-actions/button[2]')
+        button_elements = self.driver.find_elements_by_tag_name('button')
+        for button in button_elements:
+            print button.text
+            print button.get_attribute('aria-label')
+            if button.get_attribute('aria-label')=='OK':
+                actions = ActionChains(self.driver)
+                actions.move_to_element(button)
+                actions.click(button)
+                actions.perform()
+                #return button
    
+    def label_atlas_mobile_AM(self):
+        h2_elements = self.driver.find_elements_by_tag_name('h2')
+        for h2 in h2_elements:
+            if h2.get_attribute('aria-label')=='Mobile (AM)':
+                return h2
+    
+    def label_atlas_tablet_AT(self):
+        h2_elements = self.driver.find_elements_by_tag_name('h2')
+        for h2 in h2_elements:
+            if h2.get_attribute('aria-label')=='Tablet (AT)':
+                return h2
+    
+    def label_atlas_set_top_box_AS(self):
+        h2_elements = self.driver.find_elements_by_tag_name('h2')
+        for h2 in h2_elements:
+            if h2.get_attribute('aria-label')=='Tablet (AT)':
+                return h2
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
