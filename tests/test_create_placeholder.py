@@ -86,14 +86,53 @@ class TestClass:
         
         '''
         Test data for offers
+        
+            "platform": {
+                "AS": {
+                    "Platform": "AS",
+                    "EndDate": "2016-05-31 00:00:00",
+                    "Type": "Catchup",
+                    "StartDate": "2016-05-24 00:00:00"
+                },
+                "AM": {
+                    "Platform": "AM",
+                    "EndDate": "2016-05-31 00:00:00",
+                    "Type": "Catchup",
+                    "StartDate": "2016-05-24 00:00:00"
+                },
+                "AT": {
+                    "Platform": "AT",
+                    "EndDate": "2016-05-31 00:00:00",
+                    "Type": "Catchup",
+                    "StartDate": "2016-05-24 00:00:00"
+                }
+            }
+        
         '''
-        offers=[]
-        offers.append({'offer':{'Platform':'AM','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
-        offers.append({'offer':{'Platform':'AT','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
-        offers.append({'offer':{'Platform':'AS','Type':'Archive','StartDate':'24 May 2016, 13:58','EndDate':'30 May 2016, 13:58'}})
+        
+        platform_offers = {
+                           "AS": {
+                                "Platform": "AS",
+                                "EndDate": "2016-05-31 00:00:00",
+                                "Type": "Catchup",
+                                "StartDate": "2016-05-24 00:00:00"
+                            },
+                            "AM": {
+                                "Platform": "AM",
+                                "EndDate": "2016-05-31 00:00:00",
+                                "Type": "Catchup",
+                                "StartDate": "2016-05-24 00:00:00"
+                            },
+                            "AT": {
+                                "Platform": "AT",
+                                "EndDate": "2016-05-31 00:00:00",
+                                "Type": "Catchup",
+                                "StartDate": "2016-05-24 00:00:00"
+                            }
+                        }
         
         portal = Portal()
         '''No need for an assert here the function contains asserts'''
-        portal.create_new_title(webdriver,portal_asset,offers)
+        portal.create_new_title(webdriver,portal_asset,platform_offers)
         
         

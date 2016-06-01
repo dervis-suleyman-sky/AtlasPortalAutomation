@@ -67,7 +67,8 @@ class ExcelHelper(object):
                 if (operation==None or len(operation)<=0):
                     print("EOF...stop reading the spread sheet")
                     print("-----------------------------------------")
-                    break;
+                    return test_set
+
                 
                 '''Test Place Holder'''
                 test='test'+str(row_number)
