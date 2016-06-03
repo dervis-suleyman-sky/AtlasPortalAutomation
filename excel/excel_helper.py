@@ -6,6 +6,7 @@ Created on 31 May 2016
 
 from openpyxl import load_workbook
 import warnings
+import os
 
 class ExcelHelper(object):
     '''
@@ -77,17 +78,17 @@ class ExcelHelper(object):
                 
                 '''Populate the series info based in information from the spread sheet'''
                 series_info = {'SeriesID':self.get_cell_value(sheet, row_number, col_number=11),
-                       'TitleBrief':self.get_cell_value(sheet, row_number, col_number=31),
-                       'TitleMedium':self.get_cell_value(sheet, row_number, col_number=32),
-                       'TitleLong':self.get_cell_value(sheet, row_number, col_number=33),
-                       'SummaryBrief':self.get_cell_value(sheet, row_number, col_number=34),
-                       'SummaryShort':self.get_cell_value(sheet, row_number, col_number=35),
-                       'SummaryMedium':self.get_cell_value(sheet, row_number, col_number=36),
-                       'SummaryLong':self.get_cell_value(sheet, row_number, col_number=37),
+                       'TitleBrief':self.get_cell_value(sheet, row_number, col_number=30),
+                       'TitleMedium':self.get_cell_value(sheet, row_number, col_number=31),
+                       'TitleLong':self.get_cell_value(sheet, row_number, col_number=32),
+                       'SummaryBrief':self.get_cell_value(sheet, row_number, col_number=33),
+                       'SummaryShort':self.get_cell_value(sheet, row_number, col_number=34),
+                       'SummaryMedium':self.get_cell_value(sheet, row_number, col_number=35),
+                       'SummaryLong':self.get_cell_value(sheet, row_number, col_number=36),
                        'Genre':self.get_cell_value(sheet, row_number, col_number=14),
                        'StudioDisplay':self.get_cell_value(sheet, row_number, col_number=15),
-                       '16x9 image':self.get_cell_value(sheet, row_number, col_number=55),
-                       '4x3 image':self.get_cell_value(sheet, row_number, col_number=57)}
+                       '16x9 image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=58)),
+                       '4x3 image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=60))}
                 
                 test_set['test_set'][test].update({'series_info':series_info})
                 
@@ -193,15 +194,7 @@ class ExcelHelper(object):
                     test_set['test_set'][test]['platform']['AS']=offer
 
         return test_set
-    
-    '''to be completed'''
-    def update(self):
-        pass
-    
-    '''to be completed'''
-    def delete(self):
-        pass
-    
+
 
 if __name__ == '__main__':
     excel_helper = ExcelHelper('C:\\workspace\\AtlasPortalAutomation\\excel\\excel_documents\\test.xlsm')

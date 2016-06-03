@@ -283,6 +283,7 @@ class Portal(object):
 
         '''Drop down for Genre'''
         titlePage.drop_down_genre().click()
+        time.sleep(2)
         titlePage.select_genre(portal_asset['Genre'])
 
         '''drop down rating'''
@@ -503,7 +504,7 @@ class Portal(object):
                '4x3 image':'\\isilon\\test_images\\1167563-LAND_N_4_3.jpg'}
                
     '''
-    def create_new_series(self,webdriver,series_info):
+    def create_new_series(self,webdriver,series_info,delete=False):
         seriesPage = SeriesPage(webdriver)
         assert self.navigate_to_series_page(webdriver)
         seriesPage.button_add_series().click()
@@ -532,7 +533,7 @@ class Portal(object):
         seriesPage.drop_down_genre().click()
         time.sleep(2)
         seriesPage.select_genre(series_info['Genre'])
-
+        time.sleep(2)
         seriesPage.textfield_studio_display().send_keys(series_info['StudioDisplay'])
         '''
         @note: Upload images
@@ -543,10 +544,49 @@ class Portal(object):
 
         '''click ok and create the series'''
         seriesPage.button_ok().click()
+        
+        '''check the series is present but do not navigate to the same screen'''
+        assert self.exists_series(webdriver, series_info['TitleBrief'], navigate=False)
+        
+        '''remove the asset from if delete is True'''
+        if(delete):#delete):
+            self.delete_series(webdriver, series_info['TitleBrief'])
 
-        #Temp wait
-        time.sleep(5)
-
+    
+    '''
+    @author: Dervis Suleyman
+    @summary: Check if the series is on in the portal, you can specify if you want to navigate or not
+    '''
+    def exists_series(self,webdriver,title_brief,navigate=True):
+        seriesPage = SeriesPage(webdriver)
+        '''navigate to the series page if True'''
+        if(navigate):
+            assert self.navigate_to_series_page(webdriver)
+                #Temp wait
+        time.sleep(10)
+        '''expand row to max'''
+        seriesPage.set_row_number('50')
+        
+        current_series = seriesPage.find_series(title_brief)
+        
+        if(type(current_series)==bool):
+            return False
+        
+        return current_series.is_displayed()
+        
+    def delete_series(self,webdriver,title_brief):
+        seriesPage = SeriesPage(webdriver)
+        '''remove the series'''
+        seriesPage.find_series(title_brief).click()
+        time.sleep(10)
+        seriesPage.button_incon_delete_series().click()
+        time.sleep(10)
+        '''pop up'''
+        assert seriesPage.label_delete_series()
+        seriesPage.button_delete_series_ok().click()
+        time.sleep(10)
+        '''check series has been removed'''
+        assert not seriesPage.find_series(title_brief)
 
     '''create channel function'''
     def create_new_channel(self,webdriver):

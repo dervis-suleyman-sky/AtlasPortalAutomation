@@ -6,7 +6,6 @@ Created on 1 Jun 2016
 
 from portal.portal_module import Portal
 import pytest
-import json
 
 from excel.excel_helper import ExcelHelper
 
@@ -36,28 +35,30 @@ class TestClass(object):
         assert portal.login(webdriver, username="dervis_admin",password="abcd12345")
     
     '''
-    @note: The login test should leave the user logged into the machine
+    Execute load test from spread sheet
+    @todo: Check series or season exits if yes ignore and contiue
     '''
-    def test_navigate_to_new_title_page(self,webdriver):
-        portal = Portal()
-        assert portal.navigate_to_create_new_title_page(webdriver, True)
-    
     @pytest.mark.parametrize("test",load_set(""))
     def test_portal_asset(self,webdriver,test):
         
+        '''read test data'''
         series_info = test[1].get('series_info')
         season_info = test[1].get('season_info')
         portal_asset = test[1].get('portal_asset')
         platform_offers = test[1].get('platform')
-        
-#         print test
-#         print json.dumps(test,indent=4, separators=(',', ': '))
+       
+        '''for debugging JSON data'''
+        #print test
+        #print json.dumps(test,indent=4, separators=(',', ': '))
         
         portal = Portal()
-        '''No need for an assert here the function contains asserts'''
-        portal.create_new_series(webdriver, series_info)
-        portal.create_new_season(webdriver, season_info)
-        portal.create_new_title(webdriver,portal_asset,platform_offers)
+        '''check series already created and skip creation'''
+        if(not portal.exists_series(webdriver, series_info['TitleBrief'], navigate=True)):
+            '''No need for an assert here the function contains asserts'''
+            portal.create_new_series(webdriver, series_info)
+            
+        #portal.create_new_season(webdriver, season_info)
+        #portal.create_new_title(webdriver,portal_asset,platform_offers)
         
         
         

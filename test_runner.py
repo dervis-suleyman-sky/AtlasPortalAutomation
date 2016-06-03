@@ -14,12 +14,8 @@ Created on 23 Feb 2016
 '''
 @todo: Re-run on failed py-tests e.g. if failed close the browser and re-run the test
 '''
-
 import pytest
 import os
-import datetime
-from string import lstrip
-
 
 if __name__ == "__main__":
     '''Update the path to the test location'''
