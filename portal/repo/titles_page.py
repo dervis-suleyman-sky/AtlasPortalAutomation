@@ -18,7 +18,8 @@ import SendKeys
 
 class TitlePage(object):
     '''
-    classdocs
+    @author: Derivs Suleyman
+    @summary: repo contain all the elements from the title page
     '''
     def __init__(self,web_driver):
         '''
@@ -29,9 +30,16 @@ class TitlePage(object):
     def navigate(self):
         self.driver.get('https://vodportal-test.awf.bskyb.com/#/adi/new')
         
+    def navigate_existing_titles(self):
+        self.driver.get('https://vodportal-test.awf.bskyb.com/#/assets/titles')
+        
     def title(self):
         #may need a wait condition/function here
         return self.driver.find_element_by_xpath('//*[@id="admin-panel"]/md-toolbar/div/h2[1]/span/span')
+    
+    def Label_titles(self):
+        #may need a wait condition/function here
+        return self.driver.find_element_by_xpath('/html/body/div/div/div/md-toolbar/div/h2/span[2]/span')
     
     def send_text(self,text):
         actions = ActionChains(self.driver)
@@ -444,22 +452,4 @@ class TitlePage(object):
         for h2 in h2_elements:
             if h2.get_attribute('aria-label')=='Tablet (AT)':
                 return h2
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     

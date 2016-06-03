@@ -195,3 +195,58 @@ class SeasonsPage(object):
             if button.get_attribute('aria-label')=='OK':
                 return button
 
+    def find_season(self,season_name):
+        element_td_tags = self.driver.find_elements_by_tag_name('td')
+        for td in element_td_tags:
+            if td.text==season_name:
+                return td
+            
+        return False
+            
+    def button_incon_delete_season(self):
+        element_buttons = self.driver.find_elements_by_tag_name('button')
+        for button in element_buttons:
+            if button.get_attribute('aria-label')=='delete season':
+                return button
+            
+            
+    '''Pop up delete'''
+    def label_delete_season(self):
+        '''wait for all elements to load'''
+        h2_elements = WebDriverWait(self.driver, 10).until(
+        EC.presence_of_element_located((By.TAG_NAME, 'h2')))
+        '''search for Pop up title and return True'''
+        h2_elements = self.driver.find_elements_by_tag_name('h2')
+        for h2 in h2_elements:
+            if h2.text=='Delete Season':
+                return True
+            
+        return False
+    
+    
+    def button_delete_season_ok(self):
+        element_buttons = self.driver.find_elements_by_tag_name('button')
+        for button in element_buttons:
+            if button.get_attribute('aria-label')=='OK':
+                return button
+    
+    def button_delete_season_cancel(self):
+        element_buttons = self.driver.find_elements_by_tag_name('button')
+        for button in element_buttons:
+            if button.get_attribute('aria-label')=='Cancel':
+                return button
+    '''
+    @author: Dervis Suleyman
+    @summary: clicks the drop down on the series page and selects a number of rows to be visible
+    '''
+    def set_row_number(self,row_number):
+        md_select_elements = self.driver.find_elements_by_tag_name('md-select')
+        for select in md_select_elements:
+            if select.get_attribute('aria-label')=='Rows: 10':
+                select.click()
+                time.sleep(1)
+                div_elements = self.driver.find_elements_by_tag_name('div')
+                for div in div_elements:
+                    if(div.text==row_number):
+                        div.click()
+                        time.sleep(2)

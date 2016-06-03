@@ -41,6 +41,11 @@ class TestClass(object):
     @pytest.mark.parametrize("test",load_set(""))
     def test_portal_asset(self,webdriver,test):
         
+        '''Delete or create'''
+        create=True
+        update=False
+        delete=False
+        
         '''read test data'''
         series_info = test[1].get('series_info')
         season_info = test[1].get('season_info')
@@ -52,12 +57,25 @@ class TestClass(object):
         #print json.dumps(test,indent=4, separators=(',', ': '))
         
         portal = Portal()
-        '''check series already created and skip creation'''
-        if(not portal.exists_series(webdriver, series_info['TitleBrief'], navigate=True)):
-            '''No need for an assert here the function contains asserts'''
-            portal.create_new_series(webdriver, series_info)
+        
+        #Take from the spread sheet create
+        if(create):
+            '''check series already created and skip creation else create'''
+            if(not portal.exists_series(webdriver, series_info['TitleBrief'], navigate=True)):
+                '''No need for an assert here the function contains asserts'''
+                portal.create_new_series(webdriver, series_info,delete=False)
             
-        #portal.create_new_season(webdriver, season_info)
+            '''check season already created and skip creation else create'''
+            if(not portal.exists_season(webdriver, season_info['TitleBrief'], navigate=True)):
+                portal.create_new_season(webdriver, season_info,delete=False)
+            
+        
+        if(update):
+            pass
+        
+        if(delete):
+            pass
+        
         #portal.create_new_title(webdriver,portal_asset,platform_offers)
         
         

@@ -93,30 +93,30 @@ class ExcelHelper(object):
                 test_set['test_set'][test].update({'series_info':series_info})
                 
                 season_info = {'SeasonID':self.get_cell_value(sheet, row_number, col_number=12),
-                       'Series':self.get_cell_value(sheet, row_number, col_number=32),
-                       'TitleBrief':self.get_cell_value(sheet, row_number, col_number=38),
-                       'TitleMedium':self.get_cell_value(sheet, row_number, col_number=39),
-                       'TitleLong':self.get_cell_value(sheet, row_number, col_number=40),
-                       'SummaryBrief':self.get_cell_value(sheet, row_number, col_number=41),
-                       'SummaryShort':self.get_cell_value(sheet, row_number, col_number=42),
-                       'SummaryMedium':self.get_cell_value(sheet, row_number, col_number=43),
-                       'SummaryLong':self.get_cell_value(sheet, row_number, col_number=44),
+                       'Series':self.get_cell_value(sheet, row_number, col_number=30),
+                       'TitleBrief':self.get_cell_value(sheet, row_number, col_number=37),
+                       'TitleMedium':self.get_cell_value(sheet, row_number, col_number=38),
+                       'TitleLong':self.get_cell_value(sheet, row_number, col_number=39),
+                       'SummaryBrief':self.get_cell_value(sheet, row_number, col_number=40),
+                       'SummaryShort':self.get_cell_value(sheet, row_number, col_number=41),
+                       'SummaryMedium':self.get_cell_value(sheet, row_number, col_number=42),
+                       'SummaryLong':self.get_cell_value(sheet, row_number, col_number=43),
                        'SeasonNumber':self.get_cell_value(sheet, row_number, col_number=20),
                        'TotalEpisodes':self.get_cell_value(sheet, row_number, col_number=21),
                        'ProductionYear':str(self.get_cell_value(sheet, row_number, col_number=13)),
-                       '16x9 image':self.get_cell_value(sheet, row_number, col_number=56),
-                       '4x3 image':self.get_cell_value(sheet, row_number, col_number=58)}
+                       '16x9 image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=59)),
+                       '4x3 image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=61))}
                 
                 test_set['test_set'][test].update({'season_info':season_info})
                 
                 portal_asset={'asset_id':self.get_cell_value(sheet, row_number, col_number=2),
                       'channel':self.get_cell_value(sheet, row_number, col_number=3),
-                      'series':self.get_cell_value(sheet, row_number, col_number=32),
-                      'season':self.get_cell_value(sheet, row_number, col_number=38),
-                      'episodeNumber':self.get_cell_value(sheet, row_number, col_number=19),
+                      'series':self.get_cell_value(sheet, row_number, col_number=30),
+                      'season':self.get_cell_value(sheet, row_number, col_number=37),
+                      'episodeNumber':self.get_cell_value(sheet, row_number, col_number=21),
                       'TotalEpisodes':self.get_cell_value(sheet, row_number, col_number=20),
-                      'Title':self.get_cell_value(sheet, row_number, col_number=24),
-                      'Summary':self.get_cell_value(sheet, row_number, col_number=30),
+                      'Title':self.get_cell_value(sheet, row_number, col_number=23),
+                      'Summary':self.get_cell_value(sheet, row_number, col_number=26),
                       'Actors':self.get_cell_value(sheet, row_number, col_number=45),
                       'Warning':self.get_cell_value(sheet, row_number, col_number=17),
                       'DisplayRuntime':str(self.get_cell_value(sheet, row_number, col_number=18)),#may cause problems
@@ -125,18 +125,18 @@ class ExcelHelper(object):
                       'BroadcastDate':str(self.get_cell_value(sheet, row_number, col_number=5)),
                       'ProductionYear':str(self.get_cell_value(sheet, row_number, col_number=13)),
                       'Studio':self.get_cell_value(sheet, row_number, col_number=15),
-                      'VideoFile':self.get_cell_value(sheet, row_number, col_number=47),
-                      'SD/HD':self.get_cell_value(sheet, row_number, col_number=48),
-                      'SOE':str(self.get_cell_value(sheet, row_number, col_number=49)),
-                      'SOM':str(self.get_cell_value(sheet, row_number, col_number=50)),
-                      'EOM':str(self.get_cell_value(sheet, row_number, col_number=51)),
-                      'SOC':str(self.get_cell_value(sheet, row_number, col_number=52)),
-                      'Duration':str(self.get_cell_value(sheet, row_number, col_number=53)),
-                      'AspectRatio':self.get_cell_value(sheet, row_number, col_number=54),
-                      'SubTitles':self.get_cell_value(sheet, row_number, col_number=56),
-                      '16-9-image':self.get_cell_value(sheet, row_number, col_number=60),
-                      '4-3-image':self.get_cell_value(sheet, row_number, col_number=62),
-                      'Boxart-image':self.get_cell_value(sheet, row_number, col_number=63)}
+                      'VideoFile':self.get_cell_value(sheet, row_number, col_number=46),
+                      'SD/HD':self.get_cell_value(sheet, row_number, col_number=47),
+                      'SOE':str(self.get_cell_value(sheet, row_number, col_number=48)),
+                      'SOM':str(self.get_cell_value(sheet, row_number, col_number=49)),
+                      'EOM':str(self.get_cell_value(sheet, row_number, col_number=50)),
+                      'SOC':str(self.get_cell_value(sheet, row_number, col_number=51)),
+                      'Duration':str(self.get_cell_value(sheet, row_number, col_number=52)),
+                      'AspectRatio':self.get_cell_value(sheet, row_number, col_number=53),
+                      'SubTitles':self.get_cell_value(sheet, row_number, col_number=55),
+                      '16-9-image':self.get_cell_value(sheet, row_number, col_number=56),
+                      '4-3-image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=57)),
+                      'Boxart-image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=63))}
                 
                 test_set['test_set'][test].update({'portal_asset':portal_asset})
                 

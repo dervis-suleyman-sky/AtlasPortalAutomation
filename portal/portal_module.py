@@ -127,6 +127,36 @@ class Portal(object):
         except NoSuchElementException as e:
             print e
             return False
+        
+            '''
+    @author: Dervis Suleyman
+    @note: navigates to the existing title page
+    '''
+    def navigate_to_title_page(self,webdriver,isURL=True):
+        titlePage = TitlePage(webdriver)
+        time.sleep(2)
+        #if URL is true navigate using the browser URL
+        if(isURL):
+            titlePage.navigate_existing_titles()
+        else:
+            '''
+            @todo: Add side nav functionality
+            '''
+            pass
+            #sideNav = SideNavigationBar(webdriver)
+            #sideNav.button_create_new_title().click()
+
+        try:
+            #need to have a wait - also need to ensure the screen is full screen
+            '''
+            @note: This is_displayed() only!! confirms the element is visible to the user on the page.
+            '''
+
+            return titlePage.Label_titles().is_displayed()
+
+        except NoSuchElementException as e:
+            print e
+            return False
 
     '''
     @author: Satish Tailor
@@ -353,6 +383,41 @@ class Portal(object):
         #titlePage.offer_end_date().click()
         #.send_keys('31 May 2016, 15:06')
         #titlePage.button_ok().click()
+        
+    '''
+    @author: Dervis Suleyman
+    @summary: Check if the title is on in the portal, you can specify if you want to navigate or not
+    '''
+    def exists_title(self,webdriver,title_brief,navigate=True):
+        titlePage = TitlePage(webdriver)
+        '''navigate to the series page if True'''
+        if(navigate):
+            assert self.navigate_to_create_new_title_page(webdriver)
+                #Temp wait
+        time.sleep(10)
+        '''expand row to max'''
+        titlePage.set_row_number('50')
+        
+        current_title = titlePage.find_title(title_brief)
+        
+        if(type(current_title)==bool):
+            return False
+        
+        return current_title.is_displayed()
+        
+    def delete_title(self,webdriver,title_brief):
+        titlePage = TitlePage(webdriver)
+        '''remove the series'''
+        titlePage.find_season(title_brief).click()
+        time.sleep(10)
+        titlePage.button_incon_delete_season().click()
+        time.sleep(10)
+        '''pop up'''
+        assert titlePage.label_delete_season()
+        titlePage.button_delete_season_ok().click()
+        time.sleep(10)
+        '''check series has been removed'''
+        assert not titlePage.find_season(title_brief)
 
     '''
     Navigate to the media file page check for media asset, if not present add media asset
@@ -438,7 +503,7 @@ class Portal(object):
                '4x3 image':'\\isilon\\test_images\\1167563-LAND_N_4_3.jpg'}
                
     '''
-    def create_new_season(self,webdriver,season_info):
+    def create_new_season(self,webdriver,season_info,delete=False):
         seasonPage = SeasonsPage(webdriver)
         self.navigate_to_seasons_page(webdriver)
         seasonPage.button_add_season().click()
@@ -479,11 +544,53 @@ class Portal(object):
         seasonPage.upload_image_4by3_1024by730(season_info['4x3 image'])
 
 
-        '''click ok and create the series'''
+        '''click ok and create the season'''
         seasonPage.button_ok().click()
 
         #Temp wait
         time.sleep(5)
+        
+        '''check the season is present but do not navigate to the same screen'''
+        assert self.exists_season(webdriver, season_info['TitleBrief'], navigate=False)
+        
+        '''remove the season asset if delete is True'''
+        if(delete):#delete):
+            self.delete_season(webdriver, season_info['TitleBrief'])
+            
+    '''
+    @author: Dervis Suleyman
+    @summary: Check if the season is on in the portal, you can specify if you want to navigate or not
+    '''
+    def exists_season(self,webdriver,title_brief,navigate=True):
+        seasonPage = SeasonsPage(webdriver)
+        '''navigate to the series page if True'''
+        if(navigate):
+            assert self.navigate_to_seasons_page(webdriver)
+                #Temp wait
+        time.sleep(10)
+        '''expand row to max'''
+        seasonPage.set_row_number('50')
+        
+        current_season = seasonPage.find_season(title_brief)
+        
+        if(type(current_season)==bool):
+            return False
+        
+        return current_season.is_displayed()
+        
+    def delete_season(self,webdriver,title_brief):
+        seasonPage = SeasonsPage(webdriver)
+        '''remove the series'''
+        seasonPage.find_season(title_brief).click()
+        time.sleep(10)
+        seasonPage.button_incon_delete_season().click()
+        time.sleep(10)
+        '''pop up'''
+        assert seasonPage.label_delete_season()
+        seasonPage.button_delete_season_ok().click()
+        time.sleep(10)
+        '''check series has been removed'''
+        assert not seasonPage.find_season(title_brief)
 
 
     '''
