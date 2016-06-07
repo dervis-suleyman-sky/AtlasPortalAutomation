@@ -6,7 +6,6 @@ Created on 23 Feb 2016
 import pytest
 from isilon.isilon_ftp_helper import IsilonHelper
 
-
 '''Portal URL for testing'''    
 portal_url = "https://vodportal-test.awf.bskyb.com"
 provider="Test provider 1"
@@ -31,6 +30,7 @@ mongodb_connection_details=""
 '''content location'''
 test_image_folder_location="C:\workspace\AtlasPortalAutomation\isilon\test_images"
 test_media_folder_location="C:\workspace\AtlasPortalAutomation\isilon\test_media"
+test_subtitles_folder_location="C:\workspace\AtlasPortalAutomation\isilon\test_media"
 
 
 @pytest.fixture(scope="module")
@@ -38,8 +38,7 @@ def config_settings():
     '''set connection details'''
     pass
 
-'''
-'''
+'''Login fixture will run per python module and stay active till the end of the test'''
 @pytest.fixture(scope="module")
 def Login(request,webdriver):
     from portal.portal_module import Portal

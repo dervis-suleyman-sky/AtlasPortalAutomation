@@ -68,7 +68,9 @@ class TestClass(object):
             '''check season already created and skip creation else create'''
             if(not portal.exists_season(webdriver, season_info['TitleBrief'], navigate=True)):
                 portal.create_new_season(webdriver, season_info,delete=False)
-            
+                
+            '''create new episodic or non-episodic asset'''
+            #portal.create_new_title(webdriver,portal_asset,platform_offers)
         
         if(update):
             pass
@@ -76,7 +78,7 @@ class TestClass(object):
         if(delete):
             pass
         
-        #portal.create_new_title(webdriver,portal_asset,platform_offers)
+        
         
         
         
