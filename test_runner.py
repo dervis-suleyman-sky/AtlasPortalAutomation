@@ -36,6 +36,8 @@ if __name__ == "__main__":
     @note: report with out time and date
     '''
     pytest.main([template_test_path,"--html=atlas reports/report.html","-s"])
+    #User with tool
+    #pytest.main([template_test_path,"--html=atlas reports/report.html","--tb=no"])
     
     '''
     @note: report with time and date

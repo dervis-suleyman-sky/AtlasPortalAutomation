@@ -21,7 +21,7 @@ class LoginPage():
         self.driver=web_driver.driver
         
     def navigate(self):
-        self.driver.get('https://vodportal-test.awf.bskyb.com/#/login')
+        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/login')
         
     def title(self):
         #may need a wait condition/function here

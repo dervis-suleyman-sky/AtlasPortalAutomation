@@ -7,7 +7,8 @@ import pytest
 from isilon.isilon_ftp_helper import IsilonHelper
 
 '''Portal URL for testing'''    
-portal_url = "https://vodportal-test.awf.bskyb.com"
+portal_url_test = "https://vodportal-test.awf.bskyb.com"
+portal_url_stage = "https://vodportal-stage.awf.bskyb.com/#/login"
 provider="Test provider 1"
 '''
 Super user connection details
@@ -28,10 +29,15 @@ drop_zone="/mnt/dmz/atlas_provider_1/drop"
 '''MongoDB connection details'''
 mongodb_connection_details=""
 '''content location'''
+portal_url = "https://vodportal-stage.awf.bskyb.com/#/login"
+user_name="dervis_admin"
+user_password="abcd12345"
+provider="Test provider 1"
+browser="chrome"
 test_image_folder_location="C:\workspace\AtlasPortalAutomation\isilon\test_images"
 test_media_folder_location="C:\workspace\AtlasPortalAutomation\isilon\test_media"
-test_subtitles_folder_location="C:\workspace\AtlasPortalAutomation\isilon\test_media"
-
+test_subtitles_folder_location="C:\workspace\AtlasPortalAutomation\isilon\subtitles"
+reports="C:\workspace\AtlasPortalAutomation\excel\excel_documents\test.xlsm"
 
 @pytest.fixture(scope="module")
 def config_settings():
@@ -55,9 +61,12 @@ def webdriver(request):
         webdriver.set_chrome_driver()
     else:
         webdriver.set_firefox_driver()
-        
+
     def fin():
-        print ("Teardown close the driver")
+        print ("Teardown close the driver")     
+#         from portal.portal_module import Portal
+#         portal = Portal()
+#         portal.logout(webdriver)
         webdriver.driver.quit()
     request.addfinalizer(fin)
     return webdriver

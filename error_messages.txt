@@ -1,0 +1,31 @@
+"The Channel["+portal_asset['channel']+"] could not be found..."
+
+"The Season["+season_info['TitleBrief']+"] could not be created..."
+
+"The Season["+season_info['TitleBrief']+"] could not be removed..."
+
+"The Season["+season_info['TitleBrief']+"] is missing the following image["+portal_asset['16-9-image']+"]..."
+
+"The Season["+season_info['TitleBrief']+"] is missing the following image["+portal_asset['4-3-image']+"]..."
+
+"The Series["+series_info['SeriesID']+"] could not be created..."
+
+"The Series["+series_info['SeriesID']+"] could not be removed..."
+
+"The Series["+series_info['SeriesID']+"] is missing the following image["+portal_asset['16-9-image']+"]..."
+
+"The Series["+series_info['SeriesID']+"] is missing the following image["+portal_asset['4-3-image']+"]..."
+
+"The asset ['TitleBrief']+"] is missing the following MXF["+portal_asset['VideoFile']+"]..."
+
+"The asset ['TitleBrief']+"] is missing the following subtitle stl["+portal_asset['SubTitles']+"]..."
+
+"The asset ['TitleBrief']+"] is missing the following image["+portal_asset['16-9-image']+"]..."
+
+"The asset ['TitleBrief']+"] is missing the following image["+portal_asset['4-3-image']+"]..."
+
+"The asset ['TitleBrief']+"] is missing the following image["+portal_asset['Boxart-image']+"]..."
+
+"Could not navigate to the [] page..."
+
+"Could not see the [add series] popup..."

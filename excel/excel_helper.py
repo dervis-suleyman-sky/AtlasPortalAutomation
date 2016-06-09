@@ -113,11 +113,11 @@ class ExcelHelper(object):
                       'channel':self.get_cell_value(sheet, row_number, col_number=3),
                       'series':self.get_cell_value(sheet, row_number, col_number=30),
                       'season':self.get_cell_value(sheet, row_number, col_number=37),
-                      'episodeNumber':self.get_cell_value(sheet, row_number, col_number=21),
-                      'TotalEpisodes':self.get_cell_value(sheet, row_number, col_number=20),
+                      'episodeNumber':self.get_cell_value(sheet, row_number, col_number=19),
+                      'TotalEpisodes':self.get_cell_value(sheet, row_number, col_number=21),
                       'Title':self.get_cell_value(sheet, row_number, col_number=23),
                       'Summary':self.get_cell_value(sheet, row_number, col_number=26),
-                      'Actors':self.get_cell_value(sheet, row_number, col_number=45),
+                      'Actors':self.get_cell_value(sheet, row_number, col_number=44),
                       'Warning':self.get_cell_value(sheet, row_number, col_number=17),
                       'DisplayRuntime':str(self.get_cell_value(sheet, row_number, col_number=18)),#may cause problems
                       'Genre':self.get_cell_value(sheet, row_number, col_number=14),
@@ -133,10 +133,11 @@ class ExcelHelper(object):
                       'SOC':str(self.get_cell_value(sheet, row_number, col_number=51)),
                       'Duration':str(self.get_cell_value(sheet, row_number, col_number=52)),
                       'AspectRatio':self.get_cell_value(sheet, row_number, col_number=53),
+                      'AudioTrackNumbers':str(self.get_cell_value(sheet, row_number, col_number=54)),
                       'SubTitles':self.get_cell_value(sheet, row_number, col_number=55),
-                      '16-9-image':self.get_cell_value(sheet, row_number, col_number=56),
+                      '16-9-image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=56)),
                       '4-3-image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=57)),
-                      'Boxart-image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=63))}
+                      'Boxart-image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=62))}
                 
                 test_set['test_set'][test].update({'portal_asset':portal_asset})
                 

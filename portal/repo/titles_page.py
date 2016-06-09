@@ -28,10 +28,10 @@ class TitlePage(object):
         self.driver=web_driver.driver
         
     def navigate(self):
-        self.driver.get('https://vodportal-test.awf.bskyb.com/#/adi/new')
+        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/adi/new')
         
     def navigate_existing_titles(self):
-        self.driver.get('https://vodportal-test.awf.bskyb.com/#/assets/titles')
+        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/assets/titles')
         
     def title(self):
         #may need a wait condition/function here
@@ -59,6 +59,10 @@ class TitlePage(object):
         actions = ActionChains(self.driver)
         actions.send_keys(text)
         actions.perform()
+        
+    def press_enter_key(self):
+        '''Simulate the action of pressing enter'''
+        SendKeys.SendKeys('{ENTER}')
     
     '''
     @note: Sub Menu lables
@@ -149,7 +153,7 @@ class TitlePage(object):
     
     
     '''season drop down'''
-    def textfield_part_season(self):
+    def drop_down_season(self):
         return self.driver.find_element_by_tag_name('season')
     
     '''Select a season'''
@@ -452,4 +456,106 @@ class TitlePage(object):
         for h2 in h2_elements:
             if h2.get_attribute('aria-label')=='Tablet (AT)':
                 return h2
+            
+    '''
+    @author: Dervis Suleyman
+    @summary: clicks the drop down on the series page and selects a number of rows to be visible
+    '''
+    def set_row_number(self,row_number):
+        md_select_elements = self.driver.find_elements_by_tag_name('md-select')
+        for select in md_select_elements:
+            if select.get_attribute('aria-label')=='Rows: 10':
+                select.click()
+                time.sleep(1)
+                div_elements = self.driver.find_elements_by_tag_name('div')
+                for div in div_elements:
+                    if(div.text==row_number):
+                        div.click()
+                        time.sleep(2)
+    
+    
+    '''
+    Asset Titles Page - Existing titles will be on this page
+    '''
+    
+    
+    '''1'''
+    def textfield_search(self,title):
+        search = self.driver.find_element_by_xpath('/html/body/div/div/div/md-content/div/div/div/md-toolbar/div/form/input')
+        search.click()
+        search.send_keys(title)
+        time.sleep(2)
+    
+    '''2'''
+    def find_title(self,title):
+        td_elements = self.driver.find_elements_by_tag_name('td')
+        for td_element in td_elements:
+            asset_title=td_element.text
+            if not asset_title=='':
+                return asset_title
+        
+        return False
+    
+    '''3'''
+    
+    '''
+    get the state of the first row, should be used along side the search feature
+        
+        #<span class="ng-isolate-scope" status-icon="SAVED">
+        #<span class="ng-isolate-scope" status-icon="NEW_VERSION">
+        #<span class="ng-isolate-scope" status-icon="CONTENT_PREP_REQ">
+        
+    '''
+    def get_state(self):
+        span_elements = self.driver.find_elements_by_tag_name('span')
+        for span_element in span_elements:
+            state = span_element.get_attribute('status-icon') 
+            if not state==None:
+                return state
+        
+        return False
+    
+    '''4'''
+    def button_menu(self):
+        button_elements = self.driver.find_elements_by_tag_name('button')
+        for button_element in button_elements:
+            if button_element.get_attribute('aria-label')=='Open demo menu':
+                return button_element
+        
+        return False
+    
+    '''For Update, testing'''
+    def button_edit(self):
+        button_elements = self.driver.find_elements_by_tag_name('button')
+        for button_element in button_elements:
+            if button_element.get_attribute('aria-label')=='Edit':
+                return button_element
+        
+        return False
+    
+    
+    def button_new_version(self):
+        button_elements = self.driver.find_elements_by_tag_name('button')
+        for button_element in button_elements:
+            if button_element.get_attribute('aria-label')=='New version':
+                return button_element
+        
+        return False
+    
+    
+    def button_new_version_and_edit(self):
+        button_elements = self.driver.find_elements_by_tag_name('button')
+        for button_element in button_elements:
+            if button_element.get_attribute('aria-label')=='New version and edit':
+                return button_element
+        
+        return False
+    
+    def button_save(self):
+        button_elements = self.driver.find_elements_by_tag_name('button')
+        for button_element in button_elements:
+            if button_element.get_attribute('aria-label')=='save':
+                return button_element
+        
+        return False
     

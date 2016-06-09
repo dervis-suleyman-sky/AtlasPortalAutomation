@@ -16,7 +16,7 @@ class MediaPage(object):
         self.driver=web_driver.driver
         
     def navigate(self):
-        self.driver.get('https://vodportal-test.awf.bskyb.com/#/media')
+        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/media')
         
     def label_media(self):
         return self.driver.find_element_by_xpath('//*[@id="admin-panel"]/md-toolbar/div/h2/span/span')

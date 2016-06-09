@@ -48,5 +48,10 @@ class AdminToolBar(object):
         return self.driver.find_element_by_xpath('/html/body/div[1]/div/div/md-toolbar/div/md-menu/button')
 
     def button_logout(self):
-        time.sleep(4)
-        return self.driver.find_element_by_xpath('/html/body/div[3]/md-menu-content/md-menu-item[2]/button')
+        time.sleep(2)
+        span_elements = self.driver.find_element_by_tag_name('span')
+        for span_element in span_elements:
+            if span_element.text == 'Logout':
+                return span_element
+        
+        return False

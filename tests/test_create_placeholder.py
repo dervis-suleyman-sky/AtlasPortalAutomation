@@ -21,7 +21,7 @@ class TestClass:
     def test_navigate_to_login_page(self,webdriver):
         portal = Portal()
         assert portal.navigate_to_login_page(webdriver)
- 
+  
     def test_login_valid_credentials(self,webdriver):
         portal = Portal()
         assert portal.login(webdriver, username="dervis_admin",password="abcd12345")
@@ -47,12 +47,12 @@ class TestClass:
 #         portal.check_media_content_is_present(webdriver,content,content_file_path,destination_folder=dropzone)
 
   
-    '''
-    @note: The login test should leave the user logged into the machine
-    '''
-    def test_navigate_to_new_title_page(self,webdriver):
-        portal = Portal()
-        assert portal.navigate_to_create_new_title_page(webdriver, True)
+#     '''
+#     @note: The login test should leave the user logged into the machine
+#     '''
+#     def test_navigate_to_new_title_page(self,webdriver):
+#         portal = Portal()
+#         assert portal.navigate_to_create_new_title_page(webdriver, True)
     
     '''
     @author: Dervis Suleyman
@@ -70,7 +70,7 @@ class TestClass:
                       'TotalEpisodes':'50',
                       'Title':'Some Title',
                       'Summary':'Some Summary',
-                      'Actors':'Dervis Suleyman',
+                      'Actors':'Noah Wyle, Rebecca Romijn, Christian Kane',
                       'Warning':'This movie may contain flashing images',
                       'DisplayRuntime':'0:20',
                       'Genre':'Specialist:Adult',
@@ -83,10 +83,10 @@ class TestClass:
                       '16-9-image':'\\isilon\\test_images\\1167563-LAND_16_9.jpg',
                       '4-3-image':'\\isilon\\test_images\\1167563-LAND_N_4_3.jpg',
                       'Boxart-image':'\\isilon\\test_images\\BOXART.jpg'}
-        
+         
         '''
         Test data for offers
-        
+         
             "platform": {
                 "AS": {
                     "Platform": "AS",
@@ -107,9 +107,9 @@ class TestClass:
                     "StartDate": "2016-05-24 00:00:00"
                 }
             }
-        
+         
         '''
-        
+         
         platform_offers = {
                            "AS": {
                                 "Platform": "AS",
@@ -130,9 +130,29 @@ class TestClass:
                                 "StartDate": "2016-05-24 00:00:00"
                             }
                         }
-        
+         
         portal = Portal()
         '''No need for an assert here the function contains asserts'''
         portal.create_new_title(webdriver,portal_asset,platform_offers)
+        
+#     '''
+#     @author: Dervis Suleyman
+#     @summary: Create a new non-episodic asset
+#     '''
+#     def test_check_title_exists(self,webdriver):
+#         portal = Portal()
+#         '''No need for an assert here the function contains asserts'''
+#         assert portal.exists_title(webdriver, "ST stage non-epi t3")
+#         
+#     '''
+#     @author: Dervis Suleyman
+#     @summary: Create a new non-episodic asset
+#     '''
+#     def test_negative_search_check(self,webdriver):
+#         portal = Portal()
+#         '''No need for an assert here the function contains asserts'''
+#         assert portal.exists_title(webdriver, "Invalid Search")
+        
+        
         
         

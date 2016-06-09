@@ -36,6 +36,7 @@ class WebDriver():
     def set_chrome_driver(self):
         options = webdriver.ChromeOptions()
         options.add_argument("--start-maximized")
+        #options.add_argument("user-data-dir=C:\\Path")
         self.driver = webdriver.Chrome(executable_path=os.path.abspath("")+'/chromedriver_win32/chromedriver',chrome_options=options)
         self.driver.implicitly_wait(20)
         
@@ -44,6 +45,7 @@ class WebDriver():
     '''
     def set_firefox_driver(self):
         self.driver = webdriver.Firefox()
+        self.driver.maximize_window()
         
     '''
     Set to IE driver

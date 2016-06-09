@@ -16,7 +16,7 @@ class DashBoardPage(object):
         self.driver=web_driver.driver
         
     def navigate(self):
-        self.driver.get('https://vodportal-test.awf.bskyb.com/#/login')
+        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/login')
         
     def label_dashboard(self):
         return self.driver.find_element_by_xpath('//*[@id="admin-panel"]/md-toolbar/div/h2[1]/span/span')

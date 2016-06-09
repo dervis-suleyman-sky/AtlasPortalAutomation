@@ -33,7 +33,7 @@ class SeasonsPage(object):
         SendKeys.SendKeys(text)
     
     def navigate(self):
-        self.driver.get('https://vodportal-test.awf.bskyb.com/#/assets/seasons')
+        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/assets/seasons')
 
     def title(self):
         '''wait for all elements to load'''

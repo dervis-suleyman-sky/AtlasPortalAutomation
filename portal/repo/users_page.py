@@ -17,7 +17,7 @@ class UsersPage(object):
         self.driver = web_driver.driver
 
     def navigate(self):
-        self.driver.get('https://vodportal-test.awf.bskyb.com/#/admin/users')
+        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/admin/users')
 
     def title(self):
         # may need a wait condition/function here
