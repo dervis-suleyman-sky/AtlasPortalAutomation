@@ -20,6 +20,7 @@ class PortalConfig():
         self.userCredentials=self.ConfigSectionMap('userCredentials')
         self.content=self.ConfigSectionMap('content')
         self.reports=self.ConfigSectionMap('reports')
+        self.excel_file_location=self.ConfigSectionMap('spreadSheet')
     
     def ConfigSectionMap(self,section):
         dict1 = {}
@@ -30,7 +31,7 @@ class PortalConfig():
                 if dict1[option] == -1:
                     print("skip: %s" % option)
             except:
-                print("exception on %s!" % option)
+                #print("exception on %s!" % option)
                 dict1[option] = None
         return dict1
     
@@ -73,25 +74,33 @@ class PortalConfig():
     '''
     def reports_dir_location(self):
         return self.reports['output_directory']
+    
+    '''
+    spread sheet location
+    '''
+    def spread_sheet_location(self):
+        return self.excel_file_location['spread_sheet_location']
   
-'''
-Test
-'''
-if __name__ == '__main__':
-    config = PortalConfig()
-    '''portal details'''
-    print config.url()
-    print config.browser()
-    print config.provider()
-    '''portal details'''
-    print config.username()
-    print config.password()
-    '''portal details'''
-    print config.image_dir_location()
-    print config.media_dir_location()
-    print config.subtitles_dir_location()
-    '''portal details'''
-    print config.reports_dir_location()
+# '''
+# Test
+# '''
+# if __name__ == '__main__':
+#     config = PortalConfig()
+#     '''portal details'''
+#     print config.url()
+#     print config.browser()
+#     print config.provider()
+#     '''portal details'''
+#     print config.username()
+#     print config.password()
+#     '''portal details'''
+#     print config.image_dir_location()
+#     print config.media_dir_location()
+#     print config.subtitles_dir_location()
+#     '''portal details'''
+#     print config.reports_dir_location()
+#     '''spread sheet location'''
+#     print config.spread_sheet_location()
     
     
     
