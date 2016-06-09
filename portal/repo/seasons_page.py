@@ -3,6 +3,7 @@ Created on 24 May 2016
 
 @author: Satish Tailor
 '''
+from portal.config_module import PortalConfig
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -19,7 +20,10 @@ class SeasonsPage(object):
         '''
         @attention: the web driver
         '''
-        self.driver = web_driver.driver
+        self.driver=web_driver.driver
+        config=PortalConfig()
+        self.driver=web_driver.driver
+        self.url=config.url()+'/#/assets/seasons'
         
     def send_text(self,text):
         actions = ActionChains(self.driver)
@@ -33,7 +37,8 @@ class SeasonsPage(object):
         SendKeys.SendKeys(text)
     
     def navigate(self):
-        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/assets/seasons')
+        self.driver.get(self.url)
+        #self.driver.get('https://vodportal-stage.awf.bskyb.com/#/assets/seasons')
 
     def title(self):
         '''wait for all elements to load'''

@@ -4,19 +4,17 @@ Created on 12 Apr 2016
 @author: Dev2
 '''
 
+from portal.config_module import PortalConfig
+
 class DashBoardPage(object):
-    '''
-    classdocs
-    '''
 
     def __init__(self,web_driver):
-        '''
-        Constructor
-        '''
+        config=PortalConfig()
         self.driver=web_driver.driver
+        self.url=config.url()+'/#/dashboard'
         
     def navigate(self):
-        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/login')
+        self.driver.get(self.login_url)
         
     def label_dashboard(self):
         return self.driver.find_element_by_xpath('//*[@id="admin-panel"]/md-toolbar/div/h2[1]/span/span')

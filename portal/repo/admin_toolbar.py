@@ -3,6 +3,7 @@ Created on 12 Apr 2016
 
 @author: Dev2
 '''
+from portal.config_module import PortalConfig
 import time
 
 class AdminToolBar(object):

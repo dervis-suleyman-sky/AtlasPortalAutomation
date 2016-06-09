@@ -5,6 +5,7 @@ Created on 1 Jun 2016
 '''
 
 from portal.portal_module import Portal
+from portal.config_module import PortalConfig
 import pytest
 
 from excel.excel_helper import ExcelHelper
@@ -18,7 +19,8 @@ class TestClass(object):
     '''
     @pytest.fixture(scope="module")
     def load_set(self):
-        excel_helper = ExcelHelper('C:\\workspace\\AtlasPortalAutomation\\excel\\excel_documents\\test.xlsm')
+        config = PortalConfig()
+        excel_helper = ExcelHelper(config.excel_file_location['spread_sheet_location'])
         test_set = excel_helper.get_test_set()
         return test_set['test_set'].items()
     
@@ -65,11 +67,11 @@ class TestClass(object):
                 '''check series already created and skip creation else create'''
                 if(not portal.exists_series(webdriver, series_info['TitleBrief'], navigate=True)):
                     '''No need for an assert here the function contains asserts'''
-                    portal.create_asset_placeholders(webdriver, series_info,delete=False)
+                    portal.create_new_series(webdriver, series_info,delete=False)
                 
                 '''check season already created and skip creation else create'''
                 if(not portal.exists_season(webdriver, season_info['TitleBrief'], navigate=True)):
-                    portal.create_asset_placeholders(webdriver, season_info,delete=False)
+                    portal.create_new_season(webdriver, season_info,delete=False)
                      
             '''create new episodic or non-episodic asset'''
             if(not portal.exists_title(webdriver, portal_asset['Title'],navigate=True)):

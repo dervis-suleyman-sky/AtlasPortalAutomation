@@ -4,6 +4,7 @@ Created on 25 May 2016
 @author: Satish Tailor
 '''
 
+from portal.config_module import PortalConfig
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -20,7 +21,11 @@ class SeriesPage(object):
         '''
         @attention: the web driver
         '''
-        self.driver = web_driver.driver
+        self.driver=web_driver.driver
+        config=PortalConfig()
+        self.driver=web_driver.driver
+        self.url=config.url()+'/#/assets/series'
+        self.image_directory=config.image_dir_location()
         
     def send_text(self,text):
         actions = ActionChains(self.driver)
@@ -34,7 +39,8 @@ class SeriesPage(object):
         SendKeys.SendKeys(text)
     
     def navigate(self):
-        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/assets/series')
+        self.driver.get(self.url)
+        #self.driver.get('https://vodportal-stage.awf.bskyb.com/#/assets/series')
 
     def title(self):
         '''wait for all elements to load'''
@@ -148,19 +154,21 @@ class SeriesPage(object):
 
     def upload_image_16by9_1920by1080(self,image):
         '''Need to wait for input dialog to appear'''
+        assert os.path.isfile(self.image_directory+'\\'+image),"Missing - Series [16 by 9] from in ["+self.image_directory+'\\'+image+"]"
         time.sleep(1)
         self.driver.find_element_by_name('LAND_16_9_SERIES').click()
         time.sleep(1)
-        self.send_keystrokes(os.path.abspath("")+image)
+        self.send_keystrokes(self.image_directory+'\\'+image)
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
     
     def upload_image_4by3_1024by730(self,image):
         '''Need to wait for input dialog to appear'''
+        assert os.path.isfile(self.image_directory+'\\'+image),"Missing - Series [4 by 3] from in ["+self.image_directory+'\\'+image+"]"
         time.sleep(1)
         self.driver.find_element_by_name('LAND_N_4_3_SERIES').click()
         time.sleep(1)
-        self.send_keystrokes(os.path.abspath("")+image)
+        self.send_keystrokes(self.image_directory+'\\'+image)
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
 
@@ -173,6 +181,7 @@ class SeriesPage(object):
                 return button
 
     def button_ok(self):
+        time.sleep(1)
         element_buttons = self.driver.find_elements_by_tag_name('button')
         for button in element_buttons:
             if button.get_attribute('aria-label')=='OK':

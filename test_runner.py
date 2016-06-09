@@ -14,16 +14,17 @@ Created on 23 Feb 2016
 '''
 @todo: Re-run on failed py-tests e.g. if failed close the browser and re-run the test
 '''
+from portal.config_module import PortalConfig
 import pytest
 import os
 
 if __name__ == "__main__":
+    config = PortalConfig()
     '''Update the path to the test location'''
-    #template_test_path = os.path.abspath("")+"\\tests\\test_create_placeholder.py"
+    template_test_path = os.path.abspath("")+"\\tests\\test_create_placeholder.py"
     #template_test_path = os.path.abspath("")+"\\tests\\test_series.py"
     #template_test_path = os.path.abspath("")+"\\tests\\test_seasons.py"
-   
-    template_test_path = os.path.abspath("")+"\\tests\\test_excel_test_set.py"
+    #template_test_path = os.path.abspath("")+"\\tests\\test_excel_test_set.py"
     ''''
     @note: reporting plugins - https://pytest.org/latest/usage.html
         --junitxml=path
@@ -35,9 +36,11 @@ if __name__ == "__main__":
     '''
     @note: report with out time and date
     '''
-    pytest.main([template_test_path,"--html=atlas reports/report.html","-s"])
+    pytest.main([template_test_path,"--html="+config.reports_dir_location(),"-s"])
     #User with tool
-    #pytest.main([template_test_path,"--html=atlas reports/report.html","--tb=no"])
+    #pytest.main([template_test_path,"--html="+config.reports_dir_location(),"-s","--tb=no"])
+    '''debug'''
+    #pytest.main([template_test_path,"--html="+config.reports_dir_location(),"-s"])
     
     '''
     @note: report with time and date

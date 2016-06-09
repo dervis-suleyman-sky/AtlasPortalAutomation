@@ -7,9 +7,10 @@ Created on 12 Apr 2016
 #from selenium.webdriver.support.ui import WebDriverWait
 #from selenium.webdriver.support import expected_conditions as EC
 #from selenium.webdriver.common.by import By
-#from selenium.common.exceptions import NoSuchElementException
-#from selenium.common.exceptions import ElementNotVisibleException
+# from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import ElementNotVisibleException
 from selenium.webdriver.common.action_chains import ActionChains
+from portal.config_module import PortalConfig
 #from selenium.webdriver.support.ui import Select
 
 import time
@@ -26,12 +27,19 @@ class TitlePage(object):
         @attention: the web driver
         '''
         self.driver=web_driver.driver
+        '''set config'''
+        self.config=PortalConfig()
+        self.driver=web_driver.driver
+        self.url_create_title=self.config.url()+'/#/adi/new'
+        self.url_asset_title=self.config.url()+'/#/assets/titles'
         
     def navigate(self):
-        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/adi/new')
+        self.driver.get(self.url_create_title)
+        #self.driver.get('https://vodportal-stage.awf.bskyb.com/#/adi/new')
         
     def navigate_existing_titles(self):
-        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/assets/titles')
+        self.driver.get(self.url_asset_title)
+        #self.driver.get('https://vodportal-stage.awf.bskyb.com/#/assets/titles')
         
     def title(self):
         #may need a wait condition/function here
@@ -120,7 +128,7 @@ class TitlePage(object):
         element_md_options = self.driver.find_elements_by_tag_name('md-option')
         #loop through the list until you find your rating then click
         for md_option in element_md_options:
-            print md_option.text
+            #print md_option.text
             if md_option.text==_channel:
                 '''If channel is found click the value'''
                 md_option.click()
@@ -131,8 +139,17 @@ class TitlePage(object):
     
     '''series drop down'''
     def drop_down_series(self):
-        #name="series"
-        return self.driver.find_element_by_tag_name('series')
+        time.sleep(1)
+        #Look for all elements with the tag name 'md-option' and store in a list
+        element_md_select = self.driver.find_elements_by_tag_name('md-select')
+        #loop through the list until you find your rating then click
+        for md_select in element_md_select:
+            if md_select.get_attribute('name')=='series':
+                md_select.click()
+                '''If channel is found click the value'''
+                return True
+            
+        return False
     
     '''Select a series'''
     def select_series(self,_series='Friends4'):
@@ -142,7 +159,7 @@ class TitlePage(object):
         element_md_options = self.driver.find_elements_by_tag_name('md-option')
         #loop through the list until you find your rating then click
         for md_option in element_md_options:
-            print md_option.text
+            #print md_option.text
             if md_option.text==_series:
                 '''If series is found click the value'''
                 md_option.click()
@@ -154,7 +171,17 @@ class TitlePage(object):
     
     '''season drop down'''
     def drop_down_season(self):
-        return self.driver.find_element_by_tag_name('season')
+        time.sleep(1)
+        #Look for all elements with the tag name 'md-option' and store in a list
+        element_md_select = self.driver.find_elements_by_tag_name('md-select')
+        #loop through the list until you find your rating then click
+        for md_select in element_md_select:
+            if md_select.get_attribute('name')=='season':
+                md_select.click()
+                '''If channel is found click the value'''
+                return True
+            
+        return False
     
     '''Select a season'''
     def select_season(self,_season='Friends4 season 3'):
@@ -164,7 +191,7 @@ class TitlePage(object):
         element_md_options = self.driver.find_elements_by_tag_name('md-option')
         #loop through the list until you find your rating then click
         for md_option in element_md_options:
-            print md_option.text
+            #print md_option.text
             if md_option.text==_season:
                 '''If series is found click the value'''
                 md_option.click()
@@ -297,7 +324,10 @@ class TitlePage(object):
                 '''If media is found click the value'''
                 return True
             
-        '''If nothing is found return false'''   
+        '''If nothing is found return false'''
+        self.press_enter_key()
+        self.button_clear_video()
+        print("missing media ["+media+"]...")
         return False
     
     def button_clear_video(self):
@@ -321,40 +351,63 @@ class TitlePage(object):
     @note: 04 IMAGES & SUBS
     '''
     def upload_subtitles(self,subtitle_file):
+        '''check file exists'''
+        if(not os.path.isfile(self.config.subtitles_dir_location()+'\\'+subtitle_file)):
+            return False
+        
         '''Need to wait for input dialog to appear'''
         time.sleep(1)
         self.driver.find_element_by_name('SUBS').click()
         time.sleep(5)
-        self.send_keystrokes(os.path.abspath("")+subtitle_file)
+        self.send_keystrokes(self.config.subtitles_dir_location()+'\\'+subtitle_file)
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
+        return True
    
     def upload_image_16by9_1920by1080(self,image):
+        '''check file exists'''
+        if(not os.path.isfile(self.config.image_dir_location()+'\\'+image)):
+            return False
+        
         '''Need to wait for input dialog to appear'''
         time.sleep(1)
         self.driver.find_element_by_name('LAND_16_9').click()
         time.sleep(1)
-        self.send_keystrokes(os.path.abspath("")+image)
+        self.send_keystrokes(self.config.image_dir_location()+'\\'+image)
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
+        return True
     
     def upload_image_4by3_1024by730(self,image):
+        '''check file exists'''
+        if(not os.path.isfile(self.config.image_dir_location()+'\\'+image)):
+            return False
+        
         '''Need to wait for input dialog to appear'''
         time.sleep(1)
         self.driver.find_element_by_name('LAND_N_4_3').click()
         time.sleep(1)
-        self.send_keystrokes(os.path.abspath("")+image)
+        self.send_keystrokes(self.config.image_dir_location()+'\\'+image)
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
+        return True
     
     def upload_image_box_art_image_1080by1600(self,image):
-        '''Need to wait for input dialog to appear'''
-        time.sleep(1)
-        self.driver.find_element_by_name('BOXART').click()
-        time.sleep(1)
-        self.send_keystrokes(os.path.abspath("")+image)
-        '''Simulate the action of pressing enter'''
-        SendKeys.SendKeys('{ENTER}')
+        try:
+            '''check file exists'''
+            if(not os.path.isfile(self.config.image_dir_location()+'\\'+image)):
+                return False
+            
+            '''Need to wait for input dialog to appear'''
+            time.sleep(1)
+            self.driver.find_element_by_name('BOXART').click()
+            time.sleep(1)
+            self.send_keystrokes(self.config.image_dir_location()+'\\'+image)
+            '''Simulate the action of pressing enter'''
+            SendKeys.SendKeys('{ENTER}')
+            return True
+        except ElementNotVisibleException as e:
+            return "Cannot use boxart Image ["+image+"] for episodic asset"
     
     '''
     @note: 05 OFFER
@@ -396,21 +449,21 @@ class TitlePage(object):
         time.sleep(2)
         md_option_elements = self.driver.find_elements_by_tag_name('md-option')
         for md_option in md_option_elements:
-            print md_option.text
+            #print md_option.text
             if md_option.text==platform:
                 return md_option
     
     def radio_button_catchup(self):
         md_radio_button_elements = self.driver.find_elements_by_tag_name('md-radio-button')
         for radio_button in md_radio_button_elements:
-            print radio_button.get_attribute('aria-label')
+            #print radio_button.get_attribute('aria-label')
             if radio_button.get_attribute('aria-label')=='Catchup (CUTV)':
                 return radio_button.click()
     
     def radio_button_archive(self):
         md_radio_button_elements = self.driver.find_elements_by_tag_name('md-radio-button')
         for radio_button in md_radio_button_elements:
-            print radio_button.get_attribute('aria-label')
+            #print radio_button.get_attribute('aria-label')
             if radio_button.get_attribute('aria-label')=='Archive':
                 return radio_button.click()
     
@@ -430,8 +483,8 @@ class TitlePage(object):
         #return self.driver.find_element_by_xpath('/html/body/div[7]/md-dialog/md-dialog-actions/button[2]')
         button_elements = self.driver.find_elements_by_tag_name('button')
         for button in button_elements:
-            print button.text
-            print button.get_attribute('aria-label')
+            #print button.text
+            #print button.get_attribute('aria-label')
             if button.get_attribute('aria-label')=='OK':
                 actions = ActionChains(self.driver)
                 actions.move_to_element(button)

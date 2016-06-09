@@ -5,39 +5,7 @@ Created on 23 Feb 2016
 '''
 import pytest
 from isilon.isilon_ftp_helper import IsilonHelper
-
-'''Portal URL for testing'''    
-portal_url_test = "https://vodportal-test.awf.bskyb.com"
-portal_url_stage = "https://vodportal-stage.awf.bskyb.com/#/login"
-provider="Test provider 1"
-'''
-Super user connection details
-'''
-super_user_name="Dervis_superuser"
-super_user_password="test1234"
-'''
-Admin user connection details
-'''
-Admin_user_name="dervis_admin"
-Admin_user_password="abcd12345"
-'''browser for testing'''
-test_browser="chrome"
-'''chrome exe path'''
-chrom_exe="C:/workspace/DebugGUI/chromedriver_win32/chromedriver"
-'''isilon drop zone'''
-drop_zone="/mnt/dmz/atlas_provider_1/drop"
-'''MongoDB connection details'''
-mongodb_connection_details=""
-'''content location'''
-portal_url = "https://vodportal-stage.awf.bskyb.com/#/login"
-user_name="dervis_admin"
-user_password="abcd12345"
-provider="Test provider 1"
-browser="chrome"
-test_image_folder_location="C:\workspace\AtlasPortalAutomation\isilon\test_images"
-test_media_folder_location="C:\workspace\AtlasPortalAutomation\isilon\test_media"
-test_subtitles_folder_location="C:\workspace\AtlasPortalAutomation\isilon\subtitles"
-reports="C:\workspace\AtlasPortalAutomation\excel\excel_documents\test.xlsm"
+from portal.config_module import PortalConfig
 
 @pytest.fixture(scope="module")
 def config_settings():
@@ -48,16 +16,18 @@ def config_settings():
 @pytest.fixture(scope="module")
 def Login(request,webdriver):
     from portal.portal_module import Portal
+    config = PortalConfig()
     portal = Portal()
-    assert portal.login(webdriver, username="dervis_admin",password="abcd12345")
+    assert portal.login(webdriver, username=config.username(),password=config.password())
+    '''set the provider e.g. NBCU'''
 
 @pytest.fixture(scope="module")
 def webdriver(request):
     from webdriver_utils.selenium_webdriver import WebDriver
     webdriver = WebDriver()
-    
+    config = PortalConfig()
     #check for the web browser other wise create 
-    if test_browser=="chrome":
+    if config.browser()=="chrome":
         webdriver.set_chrome_driver()
     else:
         webdriver.set_firefox_driver()

@@ -4,17 +4,17 @@
 
 "The Season["+season_info['TitleBrief']+"] could not be removed..."
 
-"The Season["+season_info['TitleBrief']+"] is missing the following image["+portal_asset['16-9-image']+"]..."
+"Missing - Season [4 by 3] from in ["+self.image_directory+'\\'+image+"]"
 
-"The Season["+season_info['TitleBrief']+"] is missing the following image["+portal_asset['4-3-image']+"]..."
+"Missing - Season [16 by 9] from in ["+self.image_directory+'\\'+image+"]"
 
 "The Series["+series_info['SeriesID']+"] could not be created..."
 
 "The Series["+series_info['SeriesID']+"] could not be removed..."
 
-"The Series["+series_info['SeriesID']+"] is missing the following image["+portal_asset['16-9-image']+"]..."
+"Missing - Series [4 by 3] from in ["+self.image_directory+'\\'+image+"]"
 
-"The Series["+series_info['SeriesID']+"] is missing the following image["+portal_asset['4-3-image']+"]..."
+"Missing - Series [16 by 9] from in ["+self.image_directory+'\\'+image+"]"
 
 "The asset ['TitleBrief']+"] is missing the following MXF["+portal_asset['VideoFile']+"]..."
 
@@ -25,6 +25,12 @@
 "The asset ['TitleBrief']+"] is missing the following image["+portal_asset['4-3-image']+"]..."
 
 "The asset ['TitleBrief']+"] is missing the following image["+portal_asset['Boxart-image']+"]..."
+
+"Missing - asset [4 by 3] from in ["+self.image_directory+'\\'+image+"]"
+
+"Missing - asset [16 by 9] from in ["+self.image_directory+'\\'+image+"]"
+
+"Missing - asset [Boxart] from in ["+self.image_directory+'\\'+image+"]"
 
 "Could not navigate to the [] page..."
 

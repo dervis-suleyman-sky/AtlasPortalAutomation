@@ -27,8 +27,8 @@ class ExcelHelper(object):
     '''
 
     def __init__(self,excel_spreadsheet='C:\\workspace\\AtlasPortalAutomation\\excel\\excel_documents\\test.xlsm'):
-        print('Reading Test Data from:'+excel_spreadsheet)
-        self.excel_location=excel_spreadsheet
+        print('Reading Test Data from:',excel_spreadsheet)
+        self.excel_location=str(excel_spreadsheet)
     
     '''
     @author: Dervis Suleyman
@@ -87,8 +87,8 @@ class ExcelHelper(object):
                        'SummaryLong':self.get_cell_value(sheet, row_number, col_number=36),
                        'Genre':self.get_cell_value(sheet, row_number, col_number=14),
                        'StudioDisplay':self.get_cell_value(sheet, row_number, col_number=15),
-                       '16x9 image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=58)),
-                       '4x3 image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=60))}
+                       '16x9 image':self.get_cell_value(sheet, row_number, col_number=58),
+                       '4x3 image':self.get_cell_value(sheet, row_number, col_number=60)}
                 
                 test_set['test_set'][test].update({'series_info':series_info})
                 
@@ -104,8 +104,8 @@ class ExcelHelper(object):
                        'SeasonNumber':self.get_cell_value(sheet, row_number, col_number=20),
                        'TotalEpisodes':self.get_cell_value(sheet, row_number, col_number=21),
                        'ProductionYear':str(self.get_cell_value(sheet, row_number, col_number=13)),
-                       '16x9 image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=59)),
-                       '4x3 image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=61))}
+                       '16x9 image':self.get_cell_value(sheet, row_number, col_number=59),
+                       '4x3 image':self.get_cell_value(sheet, row_number, col_number=61)}
                 
                 test_set['test_set'][test].update({'season_info':season_info})
                 
@@ -135,9 +135,9 @@ class ExcelHelper(object):
                       'AspectRatio':self.get_cell_value(sheet, row_number, col_number=53),
                       'AudioTrackNumbers':str(self.get_cell_value(sheet, row_number, col_number=54)),
                       'SubTitles':self.get_cell_value(sheet, row_number, col_number=55),
-                      '16-9-image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=56)),
-                      '4-3-image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=57)),
-                      'Boxart-image':'\\isilon\\test_images\\'+str(self.get_cell_value(sheet, row_number, col_number=62))}
+                      '16-9-image':self.get_cell_value(sheet, row_number, col_number=56),
+                      '4-3-image':self.get_cell_value(sheet, row_number, col_number=57),
+                      'Boxart-image':self.get_cell_value(sheet, row_number, col_number=62)}
                 
                 test_set['test_set'][test].update({'portal_asset':portal_asset})
                 

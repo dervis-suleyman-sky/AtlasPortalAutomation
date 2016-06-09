@@ -3,21 +3,23 @@ Created on 25 May 2016
 
 @author: Satish Tailor
 '''
+from portal.config_module import PortalConfig
+import time
 
 class UsersPage(object):
-    '''
-    classdocs
-    '''
-
 
     def __init__(self, web_driver):
         '''
         @attention: the web driver
         '''
-        self.driver = web_driver.driver
+        self.driver=web_driver.driver
+        config=PortalConfig()
+        self.driver=web_driver.driver
+        self.url=config.url()+'/#/admin/users'
 
     def navigate(self):
-        self.driver.get('https://vodportal-stage.awf.bskyb.com/#/admin/users')
+        self.driver.get(self.url)
+        #self.driver.get('https://vodportal-stage.awf.bskyb.com/#/admin/users')
 
     def title(self):
         # may need a wait condition/function here
