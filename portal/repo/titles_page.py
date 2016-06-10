@@ -359,35 +359,35 @@ class TitlePage(object):
         time.sleep(1)
         self.driver.find_element_by_name('SUBS').click()
         time.sleep(5)
-        self.send_keystrokes(self.config.subtitles_dir_location()+'\\'+subtitle_file)
+        self.send_keystrokes(self.config.subtitles_dir_location()+'\\'+str(subtitle_file))
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
         return True
    
     def upload_image_16by9_1920by1080(self,image):
         '''check file exists'''
-        if(not os.path.isfile(self.config.image_dir_location()+'\\'+image)):
+        if(not os.path.isfile(self.config.image_dir_location()+'\\'+str(image))):
             return False
         
         '''Need to wait for input dialog to appear'''
         time.sleep(1)
         self.driver.find_element_by_name('LAND_16_9').click()
         time.sleep(1)
-        self.send_keystrokes(self.config.image_dir_location()+'\\'+image)
+        self.send_keystrokes(self.config.image_dir_location()+'\\'+str(image))
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
         return True
     
     def upload_image_4by3_1024by730(self,image):
         '''check file exists'''
-        if(not os.path.isfile(self.config.image_dir_location()+'\\'+image)):
+        if(not os.path.isfile(self.config.image_dir_location()+'\\'+str(image))):
             return False
         
         '''Need to wait for input dialog to appear'''
         time.sleep(1)
         self.driver.find_element_by_name('LAND_N_4_3').click()
         time.sleep(1)
-        self.send_keystrokes(self.config.image_dir_location()+'\\'+image)
+        self.send_keystrokes(self.config.image_dir_location()+'\\'+str(image))
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
         return True
@@ -395,14 +395,14 @@ class TitlePage(object):
     def upload_image_box_art_image_1080by1600(self,image):
         try:
             '''check file exists'''
-            if(not os.path.isfile(self.config.image_dir_location()+'\\'+image)):
+            if(not os.path.isfile(self.config.image_dir_location()+'\\'+str(image))):
                 return False
             
             '''Need to wait for input dialog to appear'''
             time.sleep(1)
             self.driver.find_element_by_name('BOXART').click()
             time.sleep(1)
-            self.send_keystrokes(self.config.image_dir_location()+'\\'+image)
+            self.send_keystrokes(self.config.image_dir_location()+'\\'+str(image))
             '''Simulate the action of pressing enter'''
             SendKeys.SendKeys('{ENTER}')
             return True
@@ -544,7 +544,7 @@ class TitlePage(object):
         td_elements = self.driver.find_elements_by_tag_name('td')
         for td_element in td_elements:
             asset_title=td_element.text
-            if not asset_title=='':
+            if asset_title==title:
                 return asset_title
         
         return False

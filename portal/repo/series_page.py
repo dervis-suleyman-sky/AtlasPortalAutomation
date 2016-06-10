@@ -158,7 +158,7 @@ class SeriesPage(object):
         time.sleep(1)
         self.driver.find_element_by_name('LAND_16_9_SERIES').click()
         time.sleep(1)
-        self.send_keystrokes(self.image_directory+'\\'+image)
+        self.send_keystrokes(self.image_directory+'\\'+str(image))
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
     
@@ -168,7 +168,7 @@ class SeriesPage(object):
         time.sleep(1)
         self.driver.find_element_by_name('LAND_N_4_3_SERIES').click()
         time.sleep(1)
-        self.send_keystrokes(self.image_directory+'\\'+image)
+        self.send_keystrokes(self.image_directory+'\\'+str(image))
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
 

@@ -24,18 +24,6 @@ class TestClass(object):
         test_set = excel_helper.get_test_set()
         return test_set['test_set'].items()
     
-#     '''
-#     @author: Dervis Suleyman
-#     @summary: Test Navigation to the Portal is possible, if the login page is not found fail the test
-#     '''
-#     def test_navigate_to_login_page(self,webdriver):
-#         portal = Portal()
-#         assert portal.navigate_to_login_page(webdriver)
-#  
-#     def test_login_valid_credentials(self,webdriver):
-#         portal = Portal()
-#         assert portal.login(webdriver, username="dervis_admin",password="abcd12345")
-    
     '''
     Execute load test from spread sheet
     @todo: Check series or season exits if yes ignore and contiue
@@ -62,16 +50,16 @@ class TestClass(object):
         
         #Take from the spread sheet create
         if(create):
-            '''check the series can be created'''
-            if(not series_info['TitleBrief']==None):
-                '''check series already created and skip creation else create'''
-                if(not portal.exists_series(webdriver, series_info['TitleBrief'], navigate=True)):
-                    '''No need for an assert here the function contains asserts'''
-                    portal.create_new_series(webdriver, series_info,delete=False)
-                
-                '''check season already created and skip creation else create'''
-                if(not portal.exists_season(webdriver, season_info['TitleBrief'], navigate=True)):
-                    portal.create_new_season(webdriver, season_info,delete=False)
+#             '''check the series can be created'''
+#             if(not series_info['TitleBrief']==None):
+#                 '''check series already created and skip creation else create'''
+#                 #if(not portal.exists_series(webdriver, series_info['TitleBrief'], navigate=True)):
+#                 '''No need for an assert here the function contains asserts'''
+#                 portal.create_new_series(webdriver, series_info,delete=False)
+#                 
+#                 '''check season already created and skip creation else create'''
+#                 #if(not portal.exists_season(webdriver, season_info['TitleBrief'], navigate=True)):
+#                 portal.create_new_season(webdriver, season_info,delete=False)
                      
             '''create new episodic or non-episodic asset'''
             if(not portal.exists_title(webdriver, portal_asset['Title'],navigate=True)):

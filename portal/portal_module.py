@@ -257,7 +257,7 @@ class Portal(object):
         time.sleep(1)
         #start with 01
         if(not (portal_asset['asset_id']==None or portal_asset['asset_id']=='')):
-            if(len(portal_asset['asset_id'])==15):
+            if(len(str(portal_asset['asset_id']))==15):
                 titlePage.button_edit_id().click()
                 titlePage.textfield_id().click()
                 titlePage.textfield_id().clear()
@@ -355,16 +355,18 @@ class Portal(object):
 
         if(not (portal_asset['ProductionYear']==None or portal_asset['ProductionYear']=='')):
             titlePage.textfield_production_year().click()
+            titlePage.textfield_production_year().clear()
             titlePage.textfield_production_year().send_keys(portal_asset['ProductionYear'])
         else:
-            overall_report.append("No Warning given..")
+            overall_report.append("No ProductionYear given..")
             #productionYear=False
 
         if(not (portal_asset['Studio']==None or portal_asset['Studio']=='')):
             titlePage.textfield_studio().click()
+            titlePage.textfield_studio().clear()
             titlePage.textfield_studio().send_keys(portal_asset['Studio'])
         else:
-            overall_report.append("No Warning given..")
+            overall_report.append("No Studio given..")
             #studio=False
 
         titlePage.button_02_next().click()
@@ -438,6 +440,11 @@ class Portal(object):
         
         '''report overall output'''
         if(len(overall_report)>0):
+            '''Append Asset ID and Name to the Overall Report'''
+            if(not (portal_asset['asset_id']==None or portal_asset['asset_id']=='')):
+                overall_report.insert(0, ['asset_id',portal_asset['asset_id']])
+            if(not (portal_asset['Title']==None or portal_asset['Title']=='')):
+                overall_report.insert(0, ["Title",portal_asset['Title']])
             assert False,overall_report
         
     '''
@@ -591,7 +598,7 @@ class Portal(object):
         time.sleep(3)
         
         '''check the season is present but do not navigate to the same screen'''
-        assert self.exists_season(webdriver, season_info['TitleBrief'], navigate=False),"The Season["+season_info['TitleBrief']+"] could not be created..."
+        #assert self.exists_season(webdriver, season_info['TitleBrief'], navigate=False),"The Season["+season_info['TitleBrief']+"] could not be created..."
         
         '''remove the season asset if delete is True'''
         if(delete):#delete):
@@ -661,7 +668,7 @@ class Portal(object):
 
 
         '''Enter series id if given'''
-        if(not series_info['SeriesID']==''):
+        if(not (series_info['SeriesID']==None or series_info['SeriesID']=='')):
             seriesPage.button_edit_id().click()
             seriesPage.textfield_id().send_keys(series_info['SeriesID'])
 
@@ -692,7 +699,7 @@ class Portal(object):
         seriesPage.button_ok().click()
         
         '''check the series is present but do not navigate to the same screen'''
-        assert self.exists_series(webdriver, series_info['TitleBrief'], navigate=False),"The Series["+series_info['SummaryShort']+"] could not be created..."
+        #assert self.exists_series(webdriver, series_info['TitleBrief'], navigate=False),"The Series["+series_info['SummaryShort']+"] could not be created..."
         
         '''remove the asset from if delete is True'''
         if(delete):#delete):

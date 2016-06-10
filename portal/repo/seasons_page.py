@@ -24,6 +24,7 @@ class SeasonsPage(object):
         config=PortalConfig()
         self.driver=web_driver.driver
         self.url=config.url()+'/#/assets/seasons'
+        self.image_directory=config.image_dir_location()
         
     def send_text(self,text):
         actions = ActionChains(self.driver)
@@ -169,20 +170,24 @@ class SeasonsPage(object):
     '''Add image load elements'''
 
     def upload_image_16by9_1920by1080(self,image):
+        
         '''Need to wait for input dialog to appear'''
+        assert os.path.isfile(self.image_directory+'\\'+image),"Missing - Season [16 by 9] from in ["+self.image_directory+'\\'+image+"]"
         time.sleep(1)
         self.driver.find_element_by_name('LAND_16_9_SEASON').click()
         time.sleep(1)
-        self.send_keystrokes(os.path.abspath("")+image)
+        self.send_keystrokes(self.image_directory+'\\'+str(image))
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
     
     def upload_image_4by3_1024by730(self,image):
+        
         '''Need to wait for input dialog to appear'''
+        assert os.path.isfile(self.image_directory+'\\'+image),"Missing - Season [4 by 3] from in ["+self.image_directory+'\\'+image+"]"
         time.sleep(1)
         self.driver.find_element_by_name('LAND_N_4_3_SEASON').click()
         time.sleep(1)
-        self.send_keystrokes(os.path.abspath("")+image)
+        self.send_keystrokes(self.image_directory+'\\'+str(image))
         '''Simulate the action of pressing enter'''
         SendKeys.SendKeys('{ENTER}')
 
